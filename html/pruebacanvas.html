@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset='UTF-8'>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+    <script src="https://unpkg.com/socket.io-client@2/dist/socket.io.slim.js"></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <title>Simulación de Vilanova i la Geltrú</title>
+    <style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        margin: 0;
+    }
+    #map {
+        width: 100%;
+        height: 100%;
+		position: absolute;
+		z-index:-1;
+    }
+    canvas {
+      cursor: pointer;
+    }
+
+    .play-control {
+      position: absolute;
+      top: 71px;
+      left: 154px;
+      width: 538px;
+	  color: white;
+      height: 624px;
+      text-align: center;
+      font-size: 20px;
+      font-family: 'helvetica neue', calibri, sans-serif;
+      cursor: pointer;
+    }
+
+    </style>
+  </head>
+  <body>
+    <!--<script src="dist_common.js"></script> -->
+    <script src="dist.js"></script>
+	<script src="load_rutas.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilos.css" />  
+	<button id="3" class = "hora" onClick="reply_click(200)">6:00:00</button>>
+	<script src="StreamSaver.js"></script> <!-- load before streams polyfill to detect support -->
+	<script src="https://cdn.rawgit.com/creatorrr/web-streams-polyfill/master/dist/polyfill.min.js"></script>
+	<script data-main="js/config" src="require.js"></script>
+	<div id="map"></div>
+  </body>
+  <script>
+
+    var mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/{mapId}/{z}/{x}/{y}.png?access_token={token}', {
+        attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>',
+		mapId: 'mapbox.dark',
+        token: 'pk.eyJ1IjoiYW5kcmVzcGciLCJhIjoiY2phczEzcDI1NXpyMDJ3bDlvemtxdGZqOCJ9.d6kbnKU9OpYoGwPQ2maJ1g'
+    });
+
+    var map = L.map('map')
+        .addLayer(mapboxTiles)
+        .setView([41.222904,1.732962], 14);	
+
+
+
+  </script>
+</html>

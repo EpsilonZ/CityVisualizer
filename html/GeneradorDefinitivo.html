@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+    <script src="https://unpkg.com/socket.io-client@2/dist/socket.io.slim.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
+    <style>
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            margin: 0;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+			position: absolute;
+			z-index:-1;
+        }
+        svg {
+            position: relative;
+        }
+        .travelMarker {
+            fill: blue;
+            opacity: 1;
+        }
+        .waypoints {
+            fill: black;
+            opacity: 0;
+        }
+        }
+        .drinks {
+            stroke: black;
+            fill: red;
+        }
+        .lineConnect {
+            fill: none;
+            stroke: black;
+            opacity: 0;
+        }
+
+    </style>
+
+</head>
+<body>
+<script src="load_rutas.js"></script>
+<div id="demo"></div>
+<div id="map"></div>
+<script src="StreamSaver.js"></script>
+<link rel="stylesheet" type="text/css" href="estilos.css" />  
+<button id="3" class = "hora" onClick="">0 %</button>
+<script src="https://cdn.rawgit.com/creatorrr/web-streams-polyfill/master/dist/polyfill.min.js"></script>
+<script data-main="js/config" src="require.js"></script>
+<script>
+
+	require(['config'],function() {
+
+		var mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/{mapId}/{z}/{x}/{y}.png?access_token={token}', {
+		    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>',
+		    mapId: 'rakshak.l937n12c',
+		    token: 'pk.eyJ1IjoiYW5kcmVzcGciLCJhIjoiY2phczEzcDI1NXpyMDJ3bDlvemtxdGZqOCJ9.d6kbnKU9OpYoGwPQ2maJ1g'
+		});
+
+		var map = L.map('map')
+		    .addLayer(mapboxTiles)
+		    .setView([41.222904,1.732962], 14);
+
+
+		var topLeftLimit = [654,471];
+		var bottomRightLimit = [792,695];
+
+
+		var transform = d3.geo.transform({
+			point: projectPoint
+		});
+
+
+		var d3path = d3.geo.path().projection(transform);
+
+		var toLine = d3.svg.line()
+		//    .interpolate("linear")
+		   .x(function(d) {
+			    return applyLatLngToLayer(d).x
+			})
+			.y(function(d) {
+			    return applyLatLngToLayer(d).y
+			});
+		
+		
+		var rutasbuenas = [];
+
+		var length = 68849
+
+		var svg = d3.select(map.getPanes().overlayPane).append("svg");
+
+		var g = [];
+		
+		for(var i = 0; i < length; ++i){
+			var aux = svg.append("g").attr("class", "leaflet-zoom-hide");
+			g.push(aux);
+		}
+			
+
+		fetch('Data/rutas.txt')
+	  		.then(respuesta => respuesta.text())
+	  		.then(texto => {
+				rutasbuenas = reformateaRutas(length, texto.split("\n"))
+				comienzaProceso(rutasbuenas)
+			});
+
+		
+		function comienzaProceso(rutasbuenas) {
+
+			var linePath = [];
+
+			for(var i = 0; i < length; ++i){
+				var linePathaux = g[i].selectAll(".lineConnect")
+				    .data([rutasbuenas[i]])
+				    .enter()
+				    .append("path")
+				    .attr("class", "lineConnect");
+				linePathaux.attr("d", toLine)
+				linePath.push(linePathaux);
+			}
+
+			map.on("viewreset", reset);
+
+			reset(linePath);
+
+			var rutasProjectPoints = new Array()
+
+			for ( var t = 0; t < length; ++t){
+
+				rutasProjectPoints[t] = new Array()
+
+				for(var r = 0; r < rutasbuenas[t].length; ++r){
+					
+					var punto = projectPointAux(retornaCoordsRuta(t,r)[0],retornaCoordsRuta(t,r)[1])
+						
+					var puntoPasado = [punto.x,punto.y]			
+
+					rutasProjectPoints[t].push(puntoPasado)
+
+				}
+			
+			}
+
+			require(['customScript/escribe_fichero'], function (a){
+				a.greet(linePath,length,rutasProjectPoints);
+			});
+
+			fetch('Data/horarios.txt')
+		  		.then(response => response.text())
+		  		.then(text => copiaValor(text,linePath))
+		}
+
+
+		function copiaValor(text,linePath){
+
+			var horarios = [];
+			
+			var aux = text.split("\n")
+			
+			for(var i = 0; i < length; ++i){
+				
+				var linea = aux[i].split(" ")
+				var sum = 0
+				var coordAux = [];
+
+				for(var j = 0; j < linea.length; ++j){
+
+					if(i==0 && j==0){
+						var aux2 = linePath[i].node().getPointAtLength(0);
+						horarios += (aux2.x + " " + aux2.y + " " + linea[2])
+						if(j + 3 <= linea.length) horarios += " "
+						j+=2		
+					}
+
+					else if(sum >= 2){ 
+						var aux2 = projectPointAux(coordAux[0],coordAux[1])
+						horarios += (aux2.x + " " + aux2.y + " " + linea[j])
+						sum = 0
+						if(j + 2 <= linea.length) horarios += " "
+						coordAux.pop()
+						coordAux.pop()
+					}
+					else{
+						sum+=1
+						coordAux.push(linea[j])
+					}
+				
+				}
+
+				horarios += "\n"	
+			}
+
+			require(['customScript/escribe_horarios'], function (a){
+				a.greet(horarios.toString())
+			});
+		}
+
+		function projectPointAux(x, y) {
+		    var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+		  //  this.stream.point(point.x, point.y);
+			return point;
+		} 
+
+		function reset(linePath) {
+
+		    topLeft = [654,471],
+		    bottomRight = [792,695];
+
+		    svg.attr("width", bottomRight[0] - topLeft[0] + 800)
+		        .attr("height", bottomRight[1] - topLeft[1] + 800)
+		        .style("left", topLeft[0] - 800 + "px")
+		        .style("top", topLeft[1] - 800 + "px");
+		    for(var i = 0; i < length; ++i) {
+		        linePath[i].attr("d", d3path);
+		        linePath[i].attr("d", toLine)
+		    }
+
+		    for(var i = 0; i < length; ++i)
+		    g[i].attr("transform", "translate(" + (-topLeft[0] + 800) + "," + (-topLeft[1] + 800) + ")");
+		} 
+
+		function projectPoint(x, y) {
+		    var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+		    this.stream.point(point.x, point.y);
+		} 
+		
+
+		function applyLatLngToLayer(d) {
+		    var y = d[1]
+		    var x = d[0]
+		    return map.latLngToLayerPoint(new L.LatLng(y, x))
+		}
+		
+		function retornaRuta(i){
+		    return rutasbuenas[i];
+		}
+
+		function retornaCoordsRuta(numRuta,i){
+		    var ruta = retornaRuta(numRuta);
+		    return ruta[i];
+		}
+
+	});
+
+</script>
+</body>
+
+</html>

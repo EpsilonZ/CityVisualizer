@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset='UTF-8'>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <title>Simulación de Vilanova i la Geltrú</title>
+    <style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+		margin: 0;
+    }
+    #map {
+        width: 100%;
+        height: 100%;
+		position: absolute;
+		z-index:-1;
+    }
+    canvas {
+      cursor: pointer;
+    }
+
+    .play-control {
+      position: absolute;
+      top: 51px;
+      left: 154px;
+      width: 538px;
+	  color: white;
+      height: 624px;
+      text-align: center;
+      font-size: 20px;
+      font-family: 'helvetica neue', calibri, sans-serif;
+      cursor: pointer;
+    }
+
+	.info {
+		padding: 6px 8px;
+		font: 18px/20px Arial, Helvetica, sans-serif;
+		background: white;
+		width: 150px;
+		background: rgba(255,255,255,0.8);
+		box-shadow: 0 0 0px rgba(0,0,0,0.2);
+		border-radius: 5px;
+	}
+	.info h4 {
+		margin: 0 0 0px;
+		color: #777;
+	}
+
+	.legend {
+		line-height: 30px;
+		color: #555;
+	}
+	.legend i {
+		width: 25px;
+		height: 25px;
+		float: left;
+		margin-right: 10px;
+		opacity: 0.7;
+	}
+
+    </style>
+  </head>
+  <body>
+    <script src="visualizador.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilos.css" />  
+	<button id="3" class = "hora" onClick="">6:00:00</button>
+	<button id="2" class = "masSize" onClick="aumenta_size()">Bigger</button>
+	<button id="1" class = "menosSize" onClick="disminuye_size()">Smaller</button>
+	<button id="4" class = "masRapido" onClick="aumenta_rapidez()">Faster</button>
+	<button id="5" class = "menosRapido" onClick="disminuye_rapidez()">Slower</button>
+	<button id="6" class = "avanzaHora" onClick="avanza_tiempo()">Move forward in time</button>
+	<button id="7" class = "retrasaHora" onClick="retrasa_tiempo()">Move back in time</button>
+	<div id="map"></div>
+</style>
+
+<input type="file" id="files" name="file" style="float:right"/>
+  </body>
+  <script>
+
+    var mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/{mapId}/{z}/{x}/{y}.png?access_token={token}', {
+        attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>',
+		mapId: 'mapbox.dark',
+        token: 'pk.eyJ1IjoiYW5kcmVzcGciLCJhIjoiY2phczEzcDI1NXpyMDJ3bDlvemtxdGZqOCJ9.d6kbnKU9OpYoGwPQ2maJ1g'
+    });
+
+    var map = L.map('map')
+        .addLayer(mapboxTiles)
+        .setView([41.222904,1.732962], 14);	
+
+	var legend = L.control({position: 'bottomright'});
+
+	legend.onAdd = function (map) {
+
+		var div = L.DomUtil.create('div', 'info legend'),
+		    grades = [1, 10, 20, 30, 40, 50, 70, 100, 200],
+		    labels = [];
+
+		// loop through our density intervals and generate a label with a colored square for each interval
+		for (var i = 0; i < grades.length; i++) {
+			if(i==0){
+				div.innerHTML +=
+				    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+				    grades[i] + '<br>' ;
+
+			} else{
+				div.innerHTML +=
+				    '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+				    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+			}
+		}
+
+		return div;
+	};
+
+	legend.addTo(map);
+
+
+	function getColor(d) {
+
+		if(d==1) return '#00FFFF'
+		else if(d <= 10) return '#00FFBF'
+		else if(d <= 20) return '#00FF80'
+		else if(d <= 30) return '#00FF40' 
+		else if(d <= 40) return '#00FF00'
+		else if(d <= 50) return '#FFFF00'
+		else if(d <= 70) return '#FFBF00'
+		else if(d <= 100) return '#FF8000' 
+		else if(d <= 200) return '#FF4000'
+		else return '#FF0000'
+
+	}
+
+	function handleFileSelect(evt) {
+		
+		console.log(evt.target.files[0])
+		empieza_simulacion(evt.target.files[0])
+	}
+
+	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+  </script>
+</html>

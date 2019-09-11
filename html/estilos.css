@@ -1,0 +1,86 @@
+  .hora {
+        color: #000000;
+        padding: 10px;
+        border-radius: 10px;
+        -moz-border-radius: 100px;
+        -webkit-border-radius: 100px;
+        margin-top:50px;
+		margin-left:1600px;
+		position:absolute;
+		z-index:100;
+		font-size:40px;
+    }
+  .masSize {
+        color: #000000;
+        padding: 10px;
+        border-radius: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        margin-top:50px;
+		margin-left:200px;
+		position:absolute;
+		z-index:100;
+		font-size:20px;
+    }
+  .menosSize {
+        color: #000000;
+        padding: 10px;
+        border-radius: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        margin-top:50px;
+		margin-left:80px;
+		position:absolute;
+		z-index:100;
+		font-size:20px;
+    }
+  .masRapido {
+        color: #000000;
+        padding: 10px;
+        border-radius: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        margin-top:110px;
+		margin-left:80px;
+		position:absolute;
+		z-index:100;
+		font-size:20px;
+    }
+  .menosRapido {
+        color: #000000;
+        padding: 10px;
+        border-radius: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        margin-top:110px;
+		margin-left:200px;
+		position:absolute;
+		z-index:100;
+		font-size:20px;
+    }
+  .avanzaHora {
+        color: #000000;
+        padding: 10px;
+        border-radius: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        margin-top:170px;
+		margin-left:80px;
+		position:absolute;
+		z-index:100;
+		font-size:20px;
+    }
+  .retrasaHora {
+        color: #000000;
+        padding: 10px;
+        border-radius: 5px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        margin-top:230px;
+		margin-left:80px;
+		position:absolute;
+		z-index:100;
+		font-size:20px;
+    }
+
+
