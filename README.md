@@ -6,6 +6,8 @@ __Note2: I hope this README is helpful for you. If it is not please open an issu
 
 __Note3: We'll use Mapbox. Mapbox has a free tier usage, so, if you want to implement this, head to https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ and learn how to create your own API Key. You will have to place that API Key on the html files that create a map__
 
+__Note4: I would love to upload sample files for you to visualize but each generated city can get up to 13GB so uploading this to GitHub is impossible. As soon as I find a way to attach them I'll__
+
 CityVisualizer have been designed to visualize and simulate urban movements really easily knowing a series of interest of points. 
 
  ![Allt text](media/withheatmap.png)
