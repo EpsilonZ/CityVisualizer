@@ -4,6 +4,8 @@ __Note: If you want to setup your environment head to code/ and html/ directory.
 
 __Note2: I hope this README is helpful for you. If it is not please open an issue explaining what part you don't quite understand and I'll be pleased to help!__
 
+__Note3: We'll use Mapbox. Mapbox has a free tier usage, so, if you want to implement this, head to https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ and learn how to create your own API Key. You will have to place that API Key on the html files that create a map__
+
 CityVisualizer have been designed to visualize and simulate urban movements really easily knowing a series of interest of points. 
 
  ![Allt text](media/withheatmap.png)
