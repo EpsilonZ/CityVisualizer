@@ -65,4 +65,4 @@ fi
 
 
 
-#curl "https://api.mapbox.com/directions/v5/mapbox/walking/-122.42,37.78;-77.03,38.91?steps=false&geometries=geojson&access_token=pk.eyJ1IjoiYW5kcmVzcGciLCJhIjoiY2poY29xNjExMDRzZDNocHV2aTA3Z25xaCJ9.4Df-jBumOG2NcIaj7_Kwpg". Esta api es si pudiesemos acceder a los servicios de Mapbox de forma gratuita
+#curl "https://api.mapbox.com/directions/v5/mapbox/walking/-122.42,37.78;-77.03,38.91?steps=false&geometries=geojson&access_token=YOUR API KEY". THIS API IS FOR MAPBOX, IF YOU HAVE A VALID API KEY USE IT! IT HAS A FREE TIER!
