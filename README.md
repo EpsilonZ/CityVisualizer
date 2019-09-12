@@ -226,7 +226,4 @@ Our visualization application will have the following features:
  5. __Move forward in time__. This will travel forward in time.
  6. __Move backward in time__. This will go back in time
  
- Note that all of this options are easy to change so please change as you wish. 
- 
- ## IF YOU HAVE ANY DOUBTS OPEN AN ISSUE AND I'LL BE PLEASED TO HELP:D
- 
+ Note that all of this options are easy to change so please change as you wish.  
