@@ -10,6 +10,8 @@ __Note4: I would love to upload sample files for you to visualize but each gener
 
 __Note5: Under code/ directory you will find a pdf presentation of the project in Spanish__
 
+__Note6: This project has another project that was created from it to analyze Traffic and Parking (trying to replicate Google Maps). Check this out if you are interested. https://github.com/EpsilonZ/TrafficVisualizer__
+
 CityVisualizer have been designed to visualize and simulate urban movements really easily knowing a series of interest of points. 
 
  ![Allt text](media/withheatmap.png)
