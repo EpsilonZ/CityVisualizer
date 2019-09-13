@@ -435,7 +435,7 @@ def realiza_peticiones(rutina,tipo):
 			coordInicioY = rutina[i][0][1]
 			coordFinX = rutina[i+1][0][0]
 			coordFinY = rutina[i+1][0][1]
-			url = "http://192.168.1.41:5000/route/v1/walking/" + str(coordInicioX) + "," + str(coordInicioY) + ";" + str(coordFinX) + "," + str(coordFinY) + "?steps=false&geometries=geojson"			
+			url = "http://192.168.1.38:5000/route/v1/walking/" + str(coordInicioX) + "," + str(coordInicioY) + ";" + str(coordFinX) + "," + str(coordFinY) + "?steps=false&geometries=geojson"			
 			peticion = requests.get(url)
 			datos = peticion.json()
 			ruta = datos['routes'][0]['geometry']['coordinates']

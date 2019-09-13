@@ -1,0 +1,45 @@
+# Step to step execution
+
+## REQUIREMENTS
+
+To execute this you will need to have set up an OSRM server since this is the server we'll use to generate routes. It uses a really simple API so it'll be perfect for our use. Please head to:
+
+Docker: https://github.com/Project-OSRM/osrm-backend/wiki/Docker-Recipes (__This is what I've built so if you go for it I can help you__) 
+Non-docker: https://github.com/Project-OSRM/osrm-backend
+AWS: You can use their cloudformation template from https://github.com/Project-OSRM/osrm-backend. Be aware that this requires an AWS account and it might exceed free tier usage.
+
+# EXECUTING SCENARIO
+
+To generate the city first you will have to give execution permissions:
+
+```
+chmod +x *.sh
+```
+
+Once you've done this you are set to start creating your city:
+
+```
+./generate_city.sh
+```
+__NOTE:__ This may take 20min+ (depending on your cpu, bandwith connection to your server) 
+
+Note that this will require your attention. For illustration, this is what is gonna be like.
+
+1. Create scheduled routes. When creating scheduled routes you will see this image:
+
+genertingRoutes.png
+
+2. Download translated GPS points to Canvas points from your localhost webpage you've set up. You will have to manually enter the http://localhost/GeneradorPruebas.html to manually start to execution. Once this is done you will be free to close the browser and keep the execution. Program will automatically copy the generated files to your current directory.
+
+3. Create smoother paths. Since doing this at browser is an issue, I wanted to execute this locally.
+
+4. Execution to file. This will take some time so please be patient...
+
+5. Generate heat map.
+
+6. Unify heat map and execution file to boost performance on visualization and analytics.
+
+7. Generate line sizes
+
+8. Move the needed files to /var/www/html/Data for you to be available to visualize them at http://localhost/SimulacionFinal.html
+
