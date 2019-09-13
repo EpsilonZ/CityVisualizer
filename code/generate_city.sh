@@ -30,7 +30,7 @@ echo "Please give this simulation a name. Choose a good one since you will know 
 
 read nombre
 
-python3 GExecutionToFile/genera_log.py ficheroIntermedios.txt horarios_filtrados.txt $nombre
+python3 GExecuteToFile/genera_log.py ficheroIntermedios.txt horarios_filtrados.txt $nombre
 
 echo "I'll create the heatmap now..."
 

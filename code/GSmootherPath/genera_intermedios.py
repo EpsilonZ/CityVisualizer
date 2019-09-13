@@ -33,7 +33,7 @@ with open(sys.argv[1]) as ficheroRutasTraducidas:
 				distancia= math.sqrt( (puntoBX-puntoAX)**2 + (puntoBY-puntoAY)**2 )
 
                                 #if you set this num higher final file is gonna be bigger but routes will be way smoother
-				puntosIntermedios = int(distancia)/7
+				puntosIntermedios = int(distancia)/14
 
 				interval_X = diff_X / (puntosIntermedios + 1)
 				interval_Y = diff_Y / (puntosIntermedios + 1)

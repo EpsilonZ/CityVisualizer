@@ -35,6 +35,8 @@ Note that this will require your attention. For illustration, this is what is go
 
  ![Allt text](../media/generatingFirstStep2.1.png)
 
+__NOTE: If you see that an error occured downloading just refresh the page and delete the temporary downloads from your Downloads folder__
+
 3. Create smoother paths. Since doing this at browser is an issue, I wanted to execute this locally.
 
  ![Allt text](../media/generatingSecondStep2.2.png)
@@ -49,3 +51,9 @@ Note that this will require your attention. For illustration, this is what is go
 
 8. Move the needed files to /var/www/html/Data for you to be available to visualize them at http://localhost/SimulacionFinal.html
 
+If during the process you've had a RAM issue you can go to GSmootherPath/genera_intermedios.py and change this line:
+
+```
+                                puntosIntermedios = int(distancia)/14
+```
+__To a lower number (increase the 14 to the result is lower). This will result in a less intermediate points so less smoothing is applied to the route.__

@@ -66,7 +66,7 @@
 		var mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/{mapId}/{z}/{x}/{y}.png?access_token={token}', {
 		    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>',
 		    mapId: 'rakshak.l937n12c',
-		    token: 'YOUR API KEY'
+		    token: 'pk.eyJ1IjoiYW5kcmVzcGciLCJhIjoiY2phczEzcDI1NXpyMDJ3bDlvemtxdGZqOCJ9.d6kbnKU9OpYoGwPQ2maJ1g'
 		});
 
 		var map = L.map('map')
@@ -142,8 +142,10 @@
 
 			for ( var t = 0; t < length; ++t){
 				rutasProjectPoints[t] = new Array()
+				//console.log(t)
 				for(var r = 0; r < rutasbuenas[t].length; ++r){
                     //console.log(t,r)
+                                        //console.log(rutasbuenas[t]);
 					var punto = projectPointAux(retornaCoordsRuta(t,r)[0],retornaCoordsRuta(t,r)[1])
 					var puntoPasado = [punto.x,punto.y]			
 					rutasProjectPoints[t].push(puntoPasado)
@@ -172,6 +174,7 @@
 				//console.log(j)
 				var tratarRutas = rutas1[j].split(',');
 				for(var i = 0; i < tratarRutas.length; ++cont){
+					//console.log(i)
 					if(i==0){
 						//console.log(j);
 						var coordx = tratarRutas[i].substring(2);
@@ -182,10 +185,12 @@
 						i+=2;
 					}
 					else if (i != 0 && i < tratarRutas.length -2){
-						var coordauxx = tratarRutas[i].substring(1);
+						var coordauxx = tratarRutas[i].substring(2);
+                                                //console.log(coordauxx);
 						var coordauxy = tratarRutas[i+1].split("]")[0];
 						var coordaux = [parseFloat(coordauxx),parseFloat(coordauxy)];
 						rutaprueba.push(coordaux);
+                                                //console.log(coordaux);
 						i+=2;
 					}
 					else{
