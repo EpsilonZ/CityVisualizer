@@ -54,6 +54,7 @@ __NOTE: If you see that an error occured downloading just refresh the page and d
 If during the process you've had a RAM issue you can go to GSmootherPath/genera_intermedios.py and change this line:
 
 ```
-                                puntosIntermedios = int(distancia)/14
+                                puntosIntermedios = 10
 ```
 __To a lower number (increase the 14 to the result is lower). This will result in a less intermediate points so less smoothing is applied to the route.__
+__You can always mount a temporary higher swap to execute this__
