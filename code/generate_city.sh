@@ -65,3 +65,5 @@ echo "Process finished with complete success. I'll move this to your /var/www/ht
 
 sudo mv $nombre'-unificado' /var/www/html/Data
 sudo mv $nombre'-unificado-sizes.txt' /var/www/html/Data
+
+echo "Head to http://localhost/SimulacionFinal.html and then click Seleccionar archivo and select your generated traces with the name you have probably wrote (navigate to /var/www/html/Data)"
