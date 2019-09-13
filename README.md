@@ -8,6 +8,8 @@ __Note3: We'll use Mapbox. Mapbox has a free tier usage, so, if you want to impl
 
 __Note4: I would love to upload sample files for you to visualize but each generated city can get up to 13GB so uploading this to GitHub is impossible. As soon as I find a way to attach them I'll__
 
+__Note5: Under code/ directory you will find a pdf presentation of the project in Spanish__
+
 CityVisualizer have been designed to visualize and simulate urban movements really easily knowing a series of interest of points. 
 
  ![Allt text](media/withheatmap.png)
