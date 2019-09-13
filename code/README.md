@@ -61,6 +61,6 @@ __You can always mount a temporary higher swap to execute this__
 
 ## Visualizing results
 
-Once you have generated your city you can travel to http://localhost to watch your simulation. Be aware that you'll have to select it through the interface on http://localhost/SimulacionFinal.html clicking on "Seleccionar archivo" and navigating to /var/www/html/Data directory. 
+Once you have generated your city you can travel to http://localhost/SimulacionFinal.html to watch your simulation. Be aware that you'll have to select it through the interface on http://localhost/SimulacionFinal.html clicking on "Seleccionar archivo" and navigating to /var/www/html/Data directory. 
 
 Also, if you want to analyze your traces, go to https://github.com/EpsilonZ/TrafficVisualizer and copy your generated file (no need to include sizes.txt) there to further analysis.
