@@ -8,6 +8,8 @@ Docker: https://github.com/Project-OSRM/osrm-backend/wiki/Docker-Recipes (__This
 Non-docker: https://github.com/Project-OSRM/osrm-backend
 AWS: You can use their cloudformation template from https://github.com/Project-OSRM/osrm-backend. Be aware that this requires an AWS account and it might exceed free tier usage.
 
+You also will need the latest version of Chrome. __Other browsers have not been tested.__
+
 # EXECUTING SCENARIO
 
 To generate the city first you will have to give execution permissions:
@@ -27,11 +29,15 @@ Note that this will require your attention. For illustration, this is what is go
 
 1. Create scheduled routes. When creating scheduled routes you will see this image:
 
-genertingRoutes.png
+ ![Allt text](../media/generatingFirstStep.png)
 
 2. Download translated GPS points to Canvas points from your localhost webpage you've set up. You will have to manually enter the http://localhost/GeneradorPruebas.html to manually start to execution. Once this is done you will be free to close the browser and keep the execution. Program will automatically copy the generated files to your current directory.
 
+ ![Allt text](../media/generatingFirstStep2.1.png)
+
 3. Create smoother paths. Since doing this at browser is an issue, I wanted to execute this locally.
+
+ ![Allt text](../media/generatingSecondStep2.2.png)
 
 4. Execution to file. This will take some time so please be patient...
 
