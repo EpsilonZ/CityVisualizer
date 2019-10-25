@@ -33,7 +33,7 @@ Note that this will require your attention. For illustration, this is what is go
 
 2. Download translated GPS points to Canvas points from your localhost webpage you've set up. You will have to manually enter the http://localhost/GeneradorPruebas.html to manually start to execution. Once this is done you will be free to close the browser and keep the execution. Program will automatically copy the generated files to your current directory.
 
- ![Allt text](../media/generatingFirstStep2.1.png)
+ ![Allt text](../media/generatingSecondStep2.1.png)
 
 __NOTE: If you see that an error occured downloading just refresh the page and delete the temporary downloads from your Downloads folder__
 
