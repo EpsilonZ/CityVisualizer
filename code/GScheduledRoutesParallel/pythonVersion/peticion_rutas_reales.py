@@ -435,7 +435,7 @@ def realiza_peticiones(rutina,tipo):
 			coordInicioY = rutina[i][0][1]
 			coordFinX = rutina[i+1][0][0]
 			coordFinY = rutina[i+1][0][1]
-			url = "http://192.168.1.38:5000/route/v1/walking/" + str(coordInicioX) + "," + str(coordInicioY) + ";" + str(coordFinX) + "," + str(coordFinY) + "?steps=false&geometries=geojson"			
+			url = "http://192.168.1.42:5000/route/v1/walking/" + str(coordInicioX) + "," + str(coordInicioY) + ";" + str(coordFinX) + "," + str(coordFinY) + "?steps=false&geometries=geojson"			
 			peticion = requests.get(url)
 			datos = peticion.json()
 			ruta = datos['routes'][0]['geometry']['coordinates']
@@ -469,7 +469,7 @@ if __name__ == '__main__':
 	for i in range(totalBarrios):
 		coordsBarrio = get_limites_barrio(i)
 		print("Barrio",i)
-		for edad in range(len(cantidadPersonasPorEdad)):
+		for edad in range(int(len(cantidadPersonasPorEdad)/20)):
 			cantidadEdadDelBarrio = int(round(cantidadPersonasPorEdad[edad]*get_porcentaje_poblacion_barrio(i)))
 			for persona in range(cantidadEdadDelBarrio):
 				rutina,tipo = obten_rutina(edad,tasaParo,cantidadEdadDelBarrio,persona,coordsBarrio)

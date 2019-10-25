@@ -10,6 +10,7 @@ sudo cp horarios.txt /var/www/html/Data
 sudo cp rutas.txt /var/www/html/Data
 
 echo "Please open this URL in your browser since some process needs to be done. http://localhost/GeneradorPruebas.html"
+google-chrome localhost/GeneradorPruebas.html
 
 echo "Press any key when you have downloaded the two files from the browser"
 
@@ -22,7 +23,7 @@ sudo cp ~/Descargas/horarios_traducidos.txt horarios_filtrados.txt
 
 echo "I'll create smoother paths to create a more pleasant visualization and improve analytics..."
 
-#python3 GSmootherPath/genera_intermedios.py ficheroFiltrado.txt ficheroIntermedios.txt
+python3 GSmootherPath/genera_intermedios.py ficheroFiltrado.txt ficheroIntermedios.txt
 
 echo "I'm going to do the execution to the file now..."
 
@@ -67,3 +68,5 @@ sudo mv $nombre'-unificado' /var/www/html/Data
 sudo mv $nombre'-unificado-sizes.txt' /var/www/html/Data
 
 echo "Head to http://localhost/SimulacionFinal.html and then click Seleccionar archivo and select your generated traces with the name you have probably wrote (navigate to /var/www/html/Data)"
+google-chrome localhost/SimulacionFinal.html
+
