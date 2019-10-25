@@ -1,5 +1,4 @@
 echo "This program will generate your city, please, be patient since we have to look a lot of steps"
-
 echo "Now I'll generate all the scheduled routes. FIRST STEP"
 
 python3 GScheduledRoutesParallel/pythonVersion/peticion_rutas_reales.py
