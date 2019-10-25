@@ -25,7 +25,7 @@ Once you've done this you are set to start creating your city:
 ```
 __NOTE:__ This may take 20min+ (depending on your cpu, bandwith connection to your server) 
 
-Note that this will require your attention. For illustration, this is what is gonna be like.
+For illustration, this is what generate_city.sh will do automatically (watch out for step 2, this is the only step that needs your input):
 
 1. Create scheduled routes. When creating scheduled routes you will see this image:
 
