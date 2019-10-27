@@ -22,7 +22,15 @@ sudo mv ~/Descargas/horarios_traducidos.txt horarios_filtrados.txt
 
 echo "I'll create smoother paths to create a more pleasant visualization and improve analytics..."
 
+echo "Generating smoothing for visualization"
 python3 GSmootherPath/genera_intermedios.py ficheroFiltrado.txt ficheroIntermedios.txt
+
+echo "Generating smoothing for gps analysis"
+
+echo "Processing raw routes file..."
+python3 GProcessGPSTraces/filter_gps_raw_file.py rutas.txt rutas_processed.txt
+echo "Smoothing gps file..."
+python3 GSmootherPath/generate_gps_intermediates.py rutas_processed.txt rutas_intermedios.txt
 
 echo "I'm going to do the execution to the file now..."
 
@@ -33,8 +41,13 @@ read nombre
 echo "THIS TAKES A LOT OF RAM SO YOU MAY GET AN ERROR IF YOU DONT HAVE ENOUGH!"
 echo "Note: If you happen to have your process killed is due to a ram error. See README.md to know how to solve it"
 
+echo "Executing to file for visualization"
 #python3 GExecuteToFile/genera_log.py ficheroIntermedios.txt horarios_filtrados.txt $nombre
 python3 GExecuteToFile/generate_optimized_log.py ficheroIntermedios.txt horarios_filtrados.txt $nombre
+
+echo "Execution to file for gps analysis"
+python3 GExecuteToFile/generate_optimized_log.py rutas_intermedios.txt horarios.txt $nombre'gps'
+
 
 echo "Ill create the heatmap now..."
 

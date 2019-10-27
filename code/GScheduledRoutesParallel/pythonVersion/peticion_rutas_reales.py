@@ -104,7 +104,7 @@ def get_limites_barrio(i):
 
 	if(i==0):
 		limites=[[1.7043,41.2208],[1.6976,41.2156],[1.70055,41.2127],[1.7079,41.2155]]
-	
+
 	elif(i==1):
 		limites=[[1.72418,41.23307],[1.72748,41.2332],[1.72795,41.2305],[1.72479,41.2304]]
 
@@ -160,7 +160,7 @@ def get_limites_barrio(i):
 
 
 def obten_coordenadasX(arrayCoords):
-	
+
 	arrayX = []
 
 	for i in range(len(arrayCoords)):
@@ -171,7 +171,7 @@ def obten_coordenadasX(arrayCoords):
 
 
 def obten_coordenadasY(arrayCoords):
-	
+
 	arrayY = []
 
 	for i in range(len(arrayCoords)):
@@ -203,7 +203,7 @@ def esta_dentro_barrio(x,y,poly):
 
 
 def arregla_hora(horaRaw):
-	
+
 	hora, minutos = str(horaRaw).split(".")
 	minutos = int(minutos)
 	hora = int(hora)
@@ -212,7 +212,7 @@ def arregla_hora(horaRaw):
 		hora = hora + 1
 
 	if(minutos>=0 and minutos<=9): # Por ejemplo, 17.3 --> 17.03
-		minutos = "0" + str(minutos)	
+		minutos = "0" + str(minutos)
 
 	horaArreglada = str(hora) + "." + str(minutos)
 
@@ -265,7 +265,7 @@ def rutina_estudiante(casa):
 
 	horaTercerPaso = format(float(horaSegundoPaso) + random.uniform(1,2),'.2f') #para obtener un decimal solo
 	horaTercerPaso = arregla_hora(horaTercerPaso)
-	
+
 	zonaLudicaAleatoria = randint(0,len(coordenadasLudico)-1)
 	coordsZonaLudica = coordenadasLudico[zonaLudicaAleatoria]
 	coordsZonaLudica[0] = format(float(coordsZonaLudica[0]),'.6f')
@@ -291,7 +291,7 @@ def rutina_trabajador(casa):
 	coordenadasSegundoPaso[0] = format(float(coordenadasSegundoPaso[0]),'.6f')
 	coordenadasSegundoPaso[1] = format(float(coordenadasSegundoPaso[1]),'.6f')
 	horaSegundoPaso = format(horarioCentrosTrabajo[trabajoEscogido][1],'.2f')
-	horaSegundoPaso = arregla_hora(horaSegundoPaso)		
+	horaSegundoPaso = arregla_hora(horaSegundoPaso)
 	rutina.append([coordenadasSegundoPaso,horaSegundoPaso])
 
 	#tiempoCaminoHastaZonaOcio = AQUI SE HACE LA PETICION PARA CONOCER EL TIEMPO DE LLEGADA
@@ -304,8 +304,8 @@ def rutina_trabajador(casa):
 	coordsZonaLudica[0] = format(float(coordsZonaLudica[0]),'.6f')
 	coordsZonaLudica[1] = format(float(coordsZonaLudica[1]),'.6f')
 	rutina.append([coordsZonaLudica,horaTercerPaso])
-	
-	
+
+
 	horaCuartoPaso = format(float(horaTercerPaso) + random.uniform(2,3),'.2f')
 	horaCuartoPaso = arregla_hora(horaCuartoPaso)
 	rutina.append([casa,horaCuartoPaso])
@@ -380,7 +380,7 @@ def escribe_en_fichero_horarios(rutina):
 	for i in range(len(rutina)):
 		lineaAescribir = str(rutina[i][0][0]) + " " + str(rutina[i][0][1]) + " " + str(rutina[i][1])
 		if(i<len(rutina)-1):
-			lineaAescribir+=" "		
+			lineaAescribir+=" "
 		horarios.write(lineaAescribir)
 
 	horarios.write("\n")
@@ -398,11 +398,11 @@ def arregla_formato_ruta(rutina,ruta,i):
 		rutaTxt = rutaTxt[2:]
 		rutaTxt = ", " + rutaTxt
 		#print(rutaTxt)
-		
+
 	return rutaTxt
 
 def arregla_hora_rutina(i,duracion,rutina):
-		
+
 	horaRutina = rutina[i][1]
 	hora, minutos = rutina[i][1].split(".")
 	minutos = int(minutos) - (float(duracion)/60)
@@ -414,7 +414,7 @@ def arregla_hora_rutina(i,duracion,rutina):
 	if(minutos>=0 and minutos<=9): # Por ejemplo, 17.3 --> 17.03
 		minutos = "0" + str(minutos)
 
-	nuevaHoraRutina = str(hora) + "." + str(minutos)	
+	nuevaHoraRutina = str(hora) + "." + str(minutos)
 
 	return nuevaHoraRutina
 
@@ -429,7 +429,7 @@ def realiza_peticiones(rutina,tipo):
 #http://192.168.1.41:5000/route/v1/walking/coordX1,coordY1;coordX2,coordY2?steps=false&geometries=geojson por ejemplo
 
 	print(tipo)
-	for i in range(len(rutina)):	
+	for i in range(len(rutina)):
 		if(i<len(rutina)-1):
 			coordInicioX = rutina[i][0][0]
 			coordInicioY = rutina[i][0][1]
@@ -469,7 +469,7 @@ if __name__ == '__main__':
 	for i in range(totalBarrios):
 		coordsBarrio = get_limites_barrio(i)
 		print("Barrio",i)
-		for edad in range(int(len(cantidadPersonasPorEdad)/40)):
+		for edad in range(int(len(cantidadPersonasPorEdad)/100)):
 			cantidadEdadDelBarrio = int(round(cantidadPersonasPorEdad[edad]*get_porcentaje_poblacion_barrio(i)))
 			for persona in range(cantidadEdadDelBarrio):
 				rutina,tipo = obten_rutina(edad,tasaParo,cantidadEdadDelBarrio,persona,coordsBarrio)
