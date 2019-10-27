@@ -66,6 +66,6 @@ Once you have generated your city you can travel to http://localhost/SimulacionF
 Also, if you want to analyze your traces, go to https://github.com/EpsilonZ/TrafficVisualizer and copy your generated file (no need to include sizes.txt) there to further analysis.
 
 
-TROUBLESHOOTING
+## TROUBLESHOOTING
 
 ValueError: could not convert string to float: '\ufeff541' --> when generating schedules file a character is added to the beggining. To fix this just nano into the file and press 'Supr' and save it
