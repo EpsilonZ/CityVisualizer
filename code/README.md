@@ -5,7 +5,9 @@
 To execute this you will need to have set up an OSRM server since this is the server we'll use to generate routes. It uses a really simple API so it'll be perfect for our use. Please head to:
 
 Docker: https://github.com/Project-OSRM/osrm-backend/wiki/Docker-Recipes (__This is what I've built so if you go for it I can help you__) 
+
 Non-docker: https://github.com/Project-OSRM/osrm-backend
+
 AWS: You can use their cloudformation template from https://github.com/Project-OSRM/osrm-backend. Be aware that this requires an AWS account and it might exceed free tier usage.
 
 You also will need the latest version of Chrome. __Other browsers have not been tested.__
