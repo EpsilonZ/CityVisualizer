@@ -68,4 +68,6 @@ Also, if you want to analyze your traces, go to https://github.com/EpsilonZ/Traf
 
 ## TROUBLESHOOTING
 
-ValueError: could not convert string to float: '\ufeff541' --> when generating schedules file a character is added to the beggining. To fix this just nano into the file and press 'Supr' and save it
+This section is made of errors I've been encountering and maybe if you change it you may encounter them as well so take a look at them if you modified the source code.
+
+ValueError: could not convert string to float: '\ufeff541'. When generating schedules file a character is added to the beggining.
