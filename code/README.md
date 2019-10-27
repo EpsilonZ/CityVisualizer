@@ -64,3 +64,8 @@ __You can always mount a temporary higher swap to execute this__
 Once you have generated your city you can travel to http://localhost/SimulacionFinal.html to watch your simulation. Be aware that you'll have to select it through the interface on http://localhost/SimulacionFinal.html clicking on "Seleccionar archivo" and navigating to /var/www/html/Data directory. 
 
 Also, if you want to analyze your traces, go to https://github.com/EpsilonZ/TrafficVisualizer and copy your generated file (no need to include sizes.txt) there to further analysis.
+
+
+TROUBLESHOOTING
+
+ValueError: could not convert string to float: '\ufeff541' --> when generating schedules file a character is added to the beggining. To fix this just nano into the file and press 'Supr' and save it

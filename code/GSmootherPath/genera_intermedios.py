@@ -9,7 +9,7 @@ with open(sys.argv[1]) as ficheroRutasTraducidas:
 		lineaRutaParseada=''.join(lineaRuta)
 		lineaRutaParseada=lineaRutaParseada.split(" ")
 		lineaRutaParseada[len(lineaRutaParseada)-1] = lineaRutaParseada[len(lineaRutaParseada)-1][:-2]
-		
+
 		lineaRutaParseada.pop()
 		#print(lineaRutaParseada)
 
@@ -30,10 +30,12 @@ with open(sys.argv[1]) as ficheroRutasTraducidas:
 				diff_X = puntoBX - puntoAX
 				diff_Y = puntoBY - puntoAY
 
-				distancia= math.sqrt( (puntoBX-puntoAX)**2 + (puntoBY-puntoAY)**2 )
+				distancia = int(math.sqrt( (puntoBX-puntoAX)**2 + (puntoBY-puntoAY)**2 ))
+
+				#print("distance:", distancia)
 
                                 #if you set this num higher final file is gonna be bigger but routes will be way smoother
-				#puntosIntermedios = int(distancia)/14
+				#puntosIntermedios = int(distancia/10)
 				puntosIntermedios = 10
 
 				interval_X = diff_X / (puntosIntermedios + 1)
@@ -56,10 +58,10 @@ with open(sys.argv[1]) as ficheroRutasTraducidas:
 				puntoAX = float(lineaRutaParseada[i])
 				puntoAY = float(lineaRutaParseada[i+1])
 				ficheroUnificado.write(str(puntoAX) + " " + str(puntoAY) + " ")
-					
+
 			i+=2
 
 		ficheroUnificado.write("\n")
 
-		
-					
+
+

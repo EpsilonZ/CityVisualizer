@@ -17,8 +17,8 @@ read userfeedback
 
 echo "I'll copy the two generated files to this directory to keep processing. You won t need to do anything else for me."
 
-sudo cp ~/Descargas/rutas_simples_traducidas.txt ficheroFiltrado.txt
-sudo cp ~/Descargas/horarios_traducidos.txt horarios_filtrados.txt
+sudo mv ~/Descargas/rutas_simples_traducidas.txt ficheroFiltrado.txt
+sudo mv ~/Descargas/horarios_traducidos.txt horarios_filtrados.txt
 
 echo "I'll create smoother paths to create a more pleasant visualization and improve analytics..."
 
@@ -33,7 +33,8 @@ read nombre
 echo "THIS TAKES A LOT OF RAM SO YOU MAY GET AN ERROR IF YOU DONT HAVE ENOUGH!"
 echo "Note: If you happen to have your process killed is due to a ram error. See README.md to know how to solve it"
 
-python3 GExecuteToFile/genera_log.py ficheroIntermedios.txt horarios_filtrados.txt $nombre
+#python3 GExecuteToFile/genera_log.py ficheroIntermedios.txt horarios_filtrados.txt $nombre
+python3 GExecuteToFile/generate_optimized_log.py ficheroIntermedios.txt horarios_filtrados.txt $nombre
 
 echo "Ill create the heatmap now..."
 

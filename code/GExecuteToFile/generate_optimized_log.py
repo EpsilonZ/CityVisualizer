@@ -1,6 +1,7 @@
 from pathlib import Path
 import math
 import sys
+import datetime
 
 
 #simulation time
@@ -14,16 +15,25 @@ count = 0
 
 schedules = []
 
-fileToWriteExecution = open(fileToWritePath,'w')
+lastPositionOfCitizens = []
+citizensFinishedMap = {}
 
-citizensFinished = {}
+routesLengthPerCitizenMap = {}
 
-def get_schedules(schedulesFilePath):
+citizenHourToGoMap = {}
 
-	with open(schedulesFilePath) as schedulesFile:
+def get_schedules():
+	i = 0
+	with open(sys.argv[2]) as schedulesFile:
 		for citizenSchedule in schedulesFile:
 			tmp=''.join(citizenSchedule)
+
+			if(i==0):
+				tmp = tmp[1:] #did this because on my tests first char was hidden and it resulted in a \ue...\ hidden char. Just delete it
+				i = 1 
+
 			tmp=tmp.split(" ")
+
 			arraySchedule=[]
 			cont=0
 			while(cont<len(tmp)):
@@ -35,39 +45,105 @@ def get_schedules(schedulesFilePath):
 				arraySchedule.append(arraytmp)
 			arraySchedule[len(arraySchedule)-1][2] = arraySchedule[len(arraySchedule)-1][2][:-2] # we delete the \n 
 			schedules.append(arraySchedule)
-		schedulesFile.close()
 
 
-def get_line(i):
+def routes_length_per_citizen(routeFile):
+	i = 0
+	for line in routeFile.readlines():
+		routesLengthPerCitizenMap[str(i)] = len(line.rstrip().split(' ')) #we delete the \n
+		i = i + 1
+	#print(routesLengthPerCitizenMap)
 
+def get_citizen_pos(line, positionIndex):
+	#to get the positionIndex coord we have to jump n*2-2 spaces until we find it
+	#print(line)
+	spaces_to_jump = 0
+	if(positionIndex == 0 or positionIndex == 1):
+		spaces_to_jump = positionIndex
+	else:
+		spaces_to_jump = positionIndex * 2 - 2 
+	coordX = 0.0
+	coordY = 0.0
+	i = 0
+	coordsFound = False
+	while ( i < len(line) and not coordsFound):
+		if (line[i] == ' '):
+			spaces_to_jump = spaces_to_jump - 1
+
+		elif (spaces_to_jump == 0 or spaces_to_jump == -1):
+			tmpcoord = ""
+			space_found = False
+			while (not space_found): 
+				if(line[i] != ' '):
+					tmpcoord += line[i]
+					i = i + 1
+				else:
+					space_found = True
+					spaces_to_jump = spaces_to_jump - 1
+
+			if (spaces_to_jump == -1):
+				coordX = float(tmpcoord)
+			else:
+				#we write coordY and we finish iterating as we found the coords we needed
+				coordY = float(tmpcoord)
+				coordsFound = True
+		i = i + 1
+
+	return coordX, coordY
+
+def get_citizens_step(citizensIndexes):
+
+	finisheds = 0
 	route = []
 	citizen = 0
 	with open(sys.argv[1]) as routesFile:
-		for line in lines:
-			try:
-				lineSplitted = line.split(' ')
-				citizenX = i * 2
-				citizenY = citizenX + 1
-				route.append([lineSplitted[citizenPosX],lineSplitted[citizenPosY]])
-				citizen += 1
-			except:
-				citizensFinished[str(citizen)] = get_line(i-1)[citizen]
-	return route
 
-def init_indexes_citizens_array(totalCitizens):
+		for line in routesFile:
+
+				#if citizen is still waiting to leave 
+				if (str(citizen) in citizenHourToGoMap):
+					route.append(lastPositionOfCitizens[citizen])
+				else:
+					citizenIndexX = citizensIndexes[citizen]
+					citizenIndexY = citizenIndexX + 1
+
+					if(routesLengthPerCitizenMap[str(citizen)] <= citizenIndexX):
+						route.append(lastPositionOfCitizens[citizen])
+						citizensFinishedMap[str(citizen)] = 1
+						finisheds = finisheds + 1
+
+					else:
+
+						lineSplitted = line.rstrip().split(' ')
+						#print("indexX: ", citizenIndexX, "len line: ", len(lineSplitted))
+						citizenPosX = lineSplitted[citizenIndexX]
+						citizenPosY = lineSplitted[citizenIndexY]
+
+						# we implement a search pos function to not do a split to the whole line. this way is optimized. only works for low indexes
+						#citX, citY = get_citizen_pos(line, citizenIndexX)
+
+						#print("citizenPosX/Y from split ", citizenPosX, citizenPosY)		
+						#print("citizenPosX/Y from looking for it", citX, citY)
+
+						route.append([citizenPosX,citizenPosY])			
+						lastPositionOfCitizens[citizen] = [citizenPosX, citizenPosY]
+
+				citizen = citizen + 1
+
+	return route, finisheds
+
+def init_array_with_length(lengthValue):
 	
-	return [0] * totalCitizens
+	return ([0] * lengthValue)
 
+def isExecutionDone(countFinished):
+	global length
+	return countFinished==length
 
-def areWeStillProcessingSameTimeCitizens(citizenCount):
-	
-	return citizenCount < length
-
-def isExecutionDone(countFinished, citizenCount):
-
-	return countFinished==length and citizenCount==length
-
-def increase_time():
+def increase_time(fileToWrite):
+	global seconds
+	global minutes
+	global hour
 
 	seconds+=10
 	if(seconds==60):
@@ -78,83 +154,115 @@ def increase_time():
 			minutes=0
 		if(hour == 0 or hour == 1 or hour == 2 or hour == 3 or hour == 4 ):
 			hour+=24
-	fileToWriteExecution.write("\n")
-
-	citizenCount=0
-	linea+=1
+	fileToWrite.write("\n")
 
 
-if citizenHasRemainingSteps(citizenCount, citizenIndexes):
+def citizenHasRemainingSteps(citizenCount):
 
-	return (str(citizenCount) in citizensFinished)
+	return (not str(citizenCount) in citizensFinishedMap)
+	
+def main(fileToWrite):
 
+	global lastPositionOfCitizens 
+	global length
 
-
-def main(routesFilePath, schedulesFilePath, fileToWritePath):
-
-	get_schedules(schedulesFilePath)
+	get_schedules()
 	finished = False
-	citizensIndexes = init_indexes_citizens_array(len(route))
-	try:
-		i = 0
-		while(not finished):
-			numberOfCitizensThatFinishedRoute = 0
-			citizenCount = 0
-			citizensArrayFinished = []
-			route = get_line(i)
+
+	length = len(routesLengthPerCitizenMap.keys())
+	citizensIndexes = init_array_with_length(length)
+	lastPositionOfCitizens = init_array_with_length(length)
+
+	while(not finished):
+
+		citizenCount = 0
+		#get_citizens_init_time = datetime.datetime.now()
+		citizensNextStep, contFinished = get_citizens_step(citizensIndexes)
+		#get_citizens_end_time = datetime.datetime.now()
+
+		#c = get_citizens_end_time - get_citizens_init_time
+
+		#print("get citizens steps took ", c.seconds,'seconds', 'or ', c.microseconds,'ms')
+
+		#print(contFinished)
+		print("time: ", hour,":",minutes,":",seconds)
+
+
+		for_init_timer = datetime.datetime.now()
+
+		for citizenCoords in citizensNextStep:
+
+			#iteration_init_timer = datetime.datetime.now()
+
+			index = citizensIndexes[citizenCount]
+			posX = float(citizenCoords[0])
+			posY = float(citizenCoords[1])
+
+			#print("posx:", posX, " posY:", posY)
+			#print("schedX:", schedules[citizenCount][0][0], " schedY:", schedules[citizenCount][0][1])
 			
-			#Citizen check
-			if(citizenCount==0):
-				numberOfCitizensThatFinishedRoute = 0
+			
+			if(citizenHasRemainingSteps(citizenCount)):
 
-			if(citizenHasRemainingSteps(citizenCount, route, citizenIndexes[citizenCount])):
-				index= citizensIndexes[citizenCount]
-				posX = route[citizenCount][indice]
-				posY = route[citizenCount][indice+1]
-
-				elif(len(schedules[citizenCount])==0):
-					ficheroLogTotal.write((posX + " " + posY))
+				if(len(schedules[citizenCount])==0):
 					citizensIndexes[citizenCount]+=2
 
-				elif(posX==schedules[elemento][0][0] and posY==schedules[citizenCount][0][1] or \
-				     abs(float(posX) - float(schedules[citizenCount][0][0]) ) < 6 and abs(float(posY) - float(totalHorarios[elemento][0][1]) ) < 6 ):
+				elif(posX==schedules[citizenCount][0][0] and posY==schedules[citizenCount][0][1] or \
+					 abs(posX - float(schedules[citizenCount][0][0]) ) < 6 and abs(posY - float(schedules[citizenCount][0][1]) ) < 6 ):
 
-					tmp=(totalHorarios[elemento][0][2] + "").split(".")
+					tmp=(schedules[citizenCount][0][2] + "").split(".")
 
 					scheduleHourCitizen = int(tmp[0])
 					schedulesMinuteCitizen = int(tmp[1])			
 
 					if((hour>scheduleHourCitizen) or (hour==scheduleHourCitizen and minutes >= schedulesMinuteCitizen)):
-						ficheroLogTotal.write(posX + " " + posY)
 						schedules[citizenCount].pop(0)
-						citizenIndexes[elemento]+=2
+						citizensIndexes[citizenCount]+=2
+						if (str(citizenCount) in citizenHourToGoMap):
+							citizenHourToGoMap.pop(str(citizenCount))
 					else:
-						ficheroLogTotal.write((posX + " " + posY))
+						citizenHourToGoMap[str(citizenCount)] = 1
 
 				else:
-					ficheroLogTotal.write((posX + " " + posY))
-					citizenIndexes[elemento]+=2
+					citizensIndexes[citizenCount]+=2
 
 			else:
-				lastPosX = citizensFinished[str(citizenCount)][0]
-				lastPosY = citizensFinished[str(citizenCount)][1]
-				
-				ficheroLogTotal.write(lastPosX + " " + lastPosY)
-				numberOfCitizensThatFinishedRoute+=1
+				citizensFinishedMap[str(citizenCount)] = 1
+			
+			fileToWrite.write(str(posX) + " " + str(posY))
 
 			citizenCount = citizenCount + 1
 
-			#Status checks
-			if(isExecutionDone(contFinished, citizenCount)):
-				ficheroLogTotal.close()
-				finished=True
-			elif(areWeStillProcessingSameTimeCitizens()):			
-				fileToWriteExecution.write(" ")
-			else:
-				#just increase time
-				increase_time(citizenCount)
+			if(citizenCount < length):			
+				fileToWrite.write(" ")
 
-			i = i + 1
+			#iteration_end_timer = datetime.datetime.now()
 
-print(get_line(0))
-print(get_line(1))
+			#diff = 	iteration_end_timer - iteration_init_timer
+			#print('iteration took ', diff.seconds,'seconds', 'or ', diff.microseconds,'ms')
+
+		#for_end_timer = datetime.datetime.now()
+		#diff_for_timers = for_end_timer - for_init_timer
+		#print('for took ', diff_for_timers.seconds,'seconds', 'or ', diff_for_timers.microseconds,'ms')
+
+		#Status checks
+		if(isExecutionDone(contFinished)):
+			fileToWrite.close()
+			finished=True
+		else:
+			increase_time(fileToWrite)
+		
+if __name__ == "__main__":
+
+	routesFile = open(sys.argv[1],'r')
+	fileToWrite = open(sys.argv[3], 'w')
+
+	#we tag routes for our optimizations. instead of loading all file we load columns by columns to get each step of each citizen
+	routes_length_per_citizen(routesFile)
+	#we'll use the routes tagged so we close the original one
+	routesFile.close()
+
+	#we execute 
+	main(fileToWrite)
+
+	fileToWrite.close()
