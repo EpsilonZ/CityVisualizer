@@ -55,12 +55,12 @@ __destinationDirectory__: Where do you want to save all data generated
 # EXECUTING SCENARIO
 
 ```
-sudo python3 GJsonConfigParser --jsonConfig config.json
+sudo python3 GJsonConfigParser/parse_json_config.py --jsonConfig config.json
 ```
 
 __NOTE__: THIS CAN TAKE A LOT OF TIME DEPENDING ON THE CITY SIZE. IT'LL END UP WORKING, JUST BE PATIENT AS A LOT HAS TO BE COMPUTED! 
 
-For illustration, this is what generate_city.sh will do automatically (watch out for step 2, this is the only step that needs your input):
+For illustration, this is GJsonConfigParser/parse_json_config.py will do automatically (watch out for step 2, this is the only step that needs your input):
 
 1. Create scheduled routes. When creating scheduled routes you will see this image:
 
