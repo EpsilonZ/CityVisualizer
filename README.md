@@ -1,5 +1,7 @@
 # CityVisualizer 1.0
 
+__AT THE END I HAVE A ROADMAP IN ORDER TO LET YOU KNOW WHAT I'M CURRENTLY DEVELOPING!__
+
 __Note: If you want to setup your environment head to code/ and html/ directory. There you will find step by step explanations!__
 
 __Note2: I hope this README is helpful for you. If it is not please open an issue explaining what part you don't quite understand and I'll be pleased to help!__
@@ -231,3 +233,21 @@ Our visualization application will have the following features:
  6. __Move backward in time__. This will go back in time
  
  Note that all of this options are easy to change so please change as you wish.  
+
+#ROADMAP
+
+- Enable an API where users can request an hour and a city and congestion is given (this only will be applied to the city I'm testing all of this)
+
+- Compare simulated data to real data with Google Traffic and real measurements
+
+- Integrate this tool with other sensor data (I'm currently doing a M.S in IoT so I'll be probably use this tool with the project)
+
+- Enable an API where an origin and destination are given and for each street the congestion is given for the time of the day (I've actually done this already but it's from another project. I'll have to merge it somehow)
+
+- Enable a Docker where users can launch everything with no need to install it in their OS. This will be great as it can be moved to any Server or even to AWS instances with no need of setting up the env!
+
+- Enable interaction with the visualizer. Zoom, move around the map, etc
+
+- Enable classification of the elements. Students/workers/unemployed/>10yo/etc. Will have to look at what's more interesting
+
+- Enable to filter between static citizens (staying at their homes, school or anywhere) and citizens in their route to somewhere
