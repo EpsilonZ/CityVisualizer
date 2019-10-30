@@ -119,6 +119,21 @@ def unify_heatMap_with_routes_trace_for_boosting_visualization(workingDir, trace
 	cmd = "python3 Features/unifica_registro_mapaCalor.py " + workingDir+traceName + " " + workingDir+traceName+"-colores.txt" + " " + workingDir+traceName+"-unificado"
 	subprocess.call(cmd, shell=True)
 
+def process_raw_routes_file(workingDir):
+
+	cmd = "python3 GProcessGPSTraces/filter_gps_raw_file.py rutas.txt " + workingDir + "rutas_processed.txt"
+	subprocess.call(cmd, shell=True)
+
+def smooth_gps_routes_file(workingDir):
+
+	cmd = "python3 GSmootherPath/generate_gps_intermediates.py " + workingDir + "rutas_processed.txt" + " " +  workingDir + "rutas_intermedios.txt"
+	subprocess.call(cmd, shell=True)
+
+def executeToFile_gps_tracing(workingDir, traceName):
+	
+	cmd = "python3 GExecuteToFile/generate_optimized_log.py " + workingDir+"rutas_intermedios.txt" + " horarios.txt " + workingDir + traceName + "gps"
+	subprocess.call(cmd, shell=True)
+
 #####################################
 
 def main(filePath):
@@ -138,9 +153,9 @@ def main(filePath):
 			unify_heatMap_with_routes_trace_for_boosting_visualization(json_user_values["destinationDirectory"], json_user_values["traceName"])
 			sizesPerLine_visualization(json_user_values["destinationDirectory"], json_user_values["traceName"])
 		if (json_user_values["gpsTracing"]):
-			process_raw_routes_file()
-			smooth_gps_routes_file()
-			executeToFile_gps_tracing()
+			process_raw_routes_file(json_user_values["destinationDirectory"])
+			smooth_gps_routes_file(json_user_values["destinationDirectory"])
+			executeToFile_gps_tracing(json_user_values["destinationDirectory"], json_user_values["traceName"])
 
 		#ask if user wants to delete tmp files. tell them that maybe they want to analyze them
 	
