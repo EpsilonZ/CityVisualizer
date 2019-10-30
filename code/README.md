@@ -33,14 +33,23 @@ JSON configuration will have the following structure:
 Which, each of them represent the following:
 
 __name__: Name of the simulation.
+
 __description__: A description of the simulation. This helps keeping a record of what's inside each simulation
+
 __numberOfCitizens__: I'm still working on this field but at the moment is how much OF NOT you want to simulate. For example, if you write 95 it will simulate only 5% of the population. I know this is confusing, I'm fixing it.
-__visualizationTracing__: True if you want to generate the city and enable visualization to the data false if not. 
+
+__visualizationTracing__: True if you want to generate the city and enable visualization to the data false if not.
+ 
 __gpsTracing__: True if you want to generate GPS database of all citizens during all the day
+
 __traceName__: Name of the files you'll be generating
+
 __downloadsBrowserFolder__: This is really useful as we'll be getting data from downloaded files from our web application so it's important that you configure it correctly or you'll encounter errors when looking for files
+
 __osrmSeverIP__: IP for the OSRM server. I've enabled one for you to test!. IP is __54.229.190.29__
+
 __osrmServerPort__: Port for the OSRM port listening. Typically OSRM runs on 5000
+
 __destinationDirectory__: Where do you want to save all data generated
 
 # EXECUTING SCENARIO
