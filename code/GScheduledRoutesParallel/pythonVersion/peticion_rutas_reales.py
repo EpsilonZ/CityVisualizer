@@ -2,9 +2,16 @@ import random
 import json
 from random import randint
 import requests
+import sys
+
+#USER CONFIGURABLE VARIABLES VIA JSON
+
+#default
+osrmIp = "192.168.1.42" 
+osrmPort = "5000"
+citizensNumber = 1
 
 #TODA ESTA INFO SERA INTRODUCIDA POR BASE DE DATOS EN UN FUTURO
-
 
 cantidadPersonasPorEdad=[549,571,558,681,698,705,713,785,729,732,696,746,754,684,649,706,669,598,642,615,575,618,569,668,631,666,653,641,\
 667,660,711,802,827,852,893,1000,990,1094,1186,1165,1178,1176,1174,107,1114,1109,1086,1087,1136,1051,1083,1063,995,955,932,\
@@ -431,11 +438,17 @@ def realiza_peticiones(rutina,tipo):
 	print(tipo)
 	for i in range(len(rutina)):
 		if(i<len(rutina)-1):
+
 			coordInicioX = rutina[i][0][0]
 			coordInicioY = rutina[i][0][1]
 			coordFinX = rutina[i+1][0][0]
 			coordFinY = rutina[i+1][0][1]
-			url = "http://192.168.1.42:5000/route/v1/walking/" + str(coordInicioX) + "," + str(coordInicioY) + ";" + str(coordFinX) + "," + str(coordFinY) + "?steps=false&geometries=geojson"			
+
+			destinationValue=osrmIp+":"+osrmPort
+
+			url = "http://"+destinationValue+"/route/v1/walking/" + str(coordInicioX) + "," + str(coordInicioY) + ";" + str(coordFinX) + "," + str(coordFinY) + "?steps=false&geometries=geojson"
+			print(url)	
+
 			peticion = requests.get(url)
 			datos = peticion.json()
 			ruta = datos['routes'][0]['geometry']['coordinates']
@@ -450,6 +463,7 @@ def realiza_peticiones(rutina,tipo):
 				duracion = datos['routes'][0]['duration']
 				horaSalida = arregla_hora_rutina(i,duracion,rutina)
 				rutina[i][1] = horaSalida
+
 		else:
 			rutina[i][0] = rutina[0][0]
 			ultimoPunto = ", " + str(rutina[0][0]) + "]\n"
@@ -465,11 +479,15 @@ if __name__ == '__main__':
 	totalBarrios = 18
 	divisionParaIgualar = (65972-64783) / totalBarrios
 
+	if(len(sys.argv)==4):
+		osrmIp = sys.argv[1]
+		osrmPort = sys.argv[2]
+		citizensNumber = int(sys.argv[3])
 
 	for i in range(totalBarrios):
 		coordsBarrio = get_limites_barrio(i)
 		print("Barrio",i)
-		for edad in range(int(len(cantidadPersonasPorEdad)/100)):
+		for edad in range(int(len(cantidadPersonasPorEdad)/citizensNumber)):
 			cantidadEdadDelBarrio = int(round(cantidadPersonasPorEdad[edad]*get_porcentaje_poblacion_barrio(i)))
 			for persona in range(cantidadEdadDelBarrio):
 				rutina,tipo = obten_rutina(edad,tasaParo,cantidadEdadDelBarrio,persona,coordsBarrio)

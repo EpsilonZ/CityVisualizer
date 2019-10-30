@@ -1,7 +1,7 @@
 echo "This program will generate your city, please, be patient since we have to look a lot of steps"
 echo "Now I'll generate all the scheduled routes. FIRST STEP"
 
-python3 GScheduledRoutesParallel/pythonVersion/peticion_rutas_reales.py
+python3 GScheduledRoutesParallel/pythonVersion/peticion_rutas_reales.py "192.168.1.42" "5000" 1
 
 echo "Scheduled routes have been generated. I'll copy your generated files to /var/www/html/Data to process them."
 
