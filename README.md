@@ -232,6 +232,8 @@ Our visualization application will have the following features:
 
 # ROADMAP
 
+- Migrate source data to cloud (in my case it'll be DynamoDB) but for github users I'll teach how to build it with MongoDB locally.
+
 - Enable an API where users can request an hour and a city and congestion is given (this only will be applied to the city I'm testing all of this)
 
 - Compare simulated data to real data with Google Traffic and real measurements
