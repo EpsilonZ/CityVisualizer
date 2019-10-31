@@ -1,4 +1,4 @@
-# Step to step execution
+# City generation
 
 ## REQUIREMENTS
 
@@ -12,7 +12,7 @@ AWS: You can use their cloudformation template from https://github.com/Project-O
 
 You also will need the latest version of Chrome. __Other browsers have not been tested.__
 
-# JSON Configuration
+## JSON Configuration
 
 JSON configuration will have the following structure:
 
@@ -52,7 +52,7 @@ __osrmServerPort__: Port for the OSRM port listening. Typically OSRM runs on 500
 
 __destinationDirectory__: Where do you want to save all data generated
 
-# EXECUTING SCENARIO
+## How to execute it
 
 ```
 sudo python3 GJsonConfigParser/parse_json_config.py --jsonConfig config.json

@@ -10,6 +10,8 @@ __Note3: Under code/ directory you will find a pdf presentation of the project i
 
 __Note4: This project has another project that was created from it to analyze Traffic and Parking (trying to replicate Google Maps). Check this out if you are interested. https://github.com/EpsilonZ/TrafficVisualizer__
 
+## What is it
+
 CityVisualizer have been designed to visualize and simulate urban movements really easily knowing a series of interest of points. 
 
  ![Allt text](media/withheatmap.png)
@@ -17,6 +19,9 @@ CityVisualizer have been designed to visualize and simulate urban movements real
  Before continuing, please watch the sample video to have in mind what this is so it's easier for you to follow the explanations https://www.youtube.com/watch?v=UivN9joTPaI&t=. Note that what you see is only the front-end of the application!
 
 This simulator is based on ABM (Agent Based Modelling) which basically means that in order to simulate a well structured city we have to know how each of our citizens behave within the city. 
+
+
+## Data example
 
 Let's take this for an example:
  
@@ -30,6 +35,8 @@ Let's take this for an example:
 So, with this information, scaling to all of the citizens, we would be able to provide precise simulations and visualizations. Also, as an extension to this project, we'll add a module where you will be able to visualize traffic at each hour at each street which will simulate Google Traffic.
 
 Before starting, you will find a document called __ArtTFG.pdf__ which will contain a in-depth explanation of this project as this was my Bachelor's final project. Bare in mind it's in __Spanish__! Anyway, for those who don't speak Spanish, you will have a detailed explanation here too!
+
+## How does it work
 
 CityVisualizer consists in a series of sequential modules that each of them have a function to do:
 
@@ -219,7 +226,7 @@ And this goes on and on!
 
 __Note that this could be done at 3. step before executing adding labels to the citizens to not visualize it but this doesn't affect much the execution!__ Also, note that because the assigning of not visualizing and visualizing each step varies so at the congested zones you might see sort of blinking!
 
-Our visualization application will have the following features:
+Our visualization application will have the following UI features so the user can interact with the visualization:
 
  1. __Faster__. This will accelerate the day we're simulating.
  2. __Slower__. This will decrease the speed of the day we're simulating.
@@ -230,7 +237,7 @@ Our visualization application will have the following features:
  
  Note that all of this options are easy to change so please change as you wish.  
 
-# ROADMAP
+## ROADMAP
 
 - Migrate source data to cloud (in my case it'll be DynamoDB) but for github users I'll teach how to build it with MongoDB locally.
 
