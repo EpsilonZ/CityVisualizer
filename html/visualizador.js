@@ -10,19 +10,26 @@ var offsetTotal=0
 var offsetSizes = 0
 var velocidad = 0
 
-
 //hora inicial de simulacion 
 var horaReferencia = new Date(2018,1,10,6,0,0,0);
 
 //Numero de habitantes a visualizar
+//var numPoints = 1185
 var numPoints = 68726
 
 //Size del canvas donde proyectaremos la visualizacion
-var width=1200
-var height=900
+var width=1700
+var height=940
 
 //Variable donde cargaremos los sizes de las lineas a cargar
 var sizes;
+
+var zoomDiff = 0
+
+//
+var center = []
+var zoom = 14
+var traducedCenter = []
 
 //Size inicial de los puntos que visualizaremos
 var pointWidth=4
@@ -70,7 +77,6 @@ function empieza_simulacion(file) {
 
 }
 
-
 function resuelveSizes(texto){
 
 	//Nos cargamos el fichero sizes en un simple array para manejarlo de forma simple
@@ -105,6 +111,19 @@ function draw(linea,lineaAtratar) {
 	//Este indice lo utilizaremos para acceder a los atributos de las lineas que cargamos
 	index=0
 
+	var valueDiffOperation = 0
+	if(zoomDiff != 0){
+		if(zoomDiff < 0){
+			valueDiffOperation = Math.abs(zoomDiff)*2; //each zoom multiplies *2 or /2 depending on zoom in or zoom out
+		} else{
+			valueDiffOperation = Math.abs(zoomDiff)/2;
+		}
+	}
+
+	console.log("valuediffope", valueDiffOperation);
+
+	var centerWhenDrawing = traducedCenter
+
 	for (let i = 0; i < points.length; ++i) {
 		//Obtenemos el habitante del array
 		const point = points[i];
@@ -112,53 +131,110 @@ function draw(linea,lineaAtratar) {
 		//Obtenemos el color del mapa de calor del habitante, punto X del habitante, punto Y del habitante
 		//A modo de recordatorio por cada habitante: PUNTOX1 PUNTOY1 COLOR1 PUNTOX2 PUNTOY2 COLOR2 ... PUNTOXN PUNTOYN COLORN
 
-        if (lineaAtratar[index+2] == "#FF0000"){
-            if(probability(0.25)){ //solo se representara el 25% de los puntos
-				ctx.fillStyle = lineaAtratar[index+2];
-				ctx.fillRect(lineaAtratar[index], lineaAtratar[index+1], widthActual, heightActual);
-			}
-		} 
+		//An answer from a google guy metersPerPx = 156543.03392 * Math.cos(latLng.lat() * Math.PI / 180) / Math.pow(2, zoom)
 
-        else if (lineaAtratar[index+2] == "#FF4000"){
-            if(probability(0.5)){ //solo se representara el 50% de los puntos
-				ctx.fillStyle = lineaAtratar[index+2];
-				ctx.fillRect(lineaAtratar[index], lineaAtratar[index+1], widthActual, heightActual);
+		var coordX = parseFloat(lineaAtratar[index])
+		var coordY = parseFloat(lineaAtratar[index+1])
+
+		if(zoomDiff < 0){
+			var diffX = Math.abs(coordX - centerWhenDrawing[0]);
+			var diffY = Math.abs(coordY - centerWhenDrawing[1]);
+			if(coordX>centerWhenDrawing[0]){
+				if(coordY>centerWhenDrawing[1]){
+					if(valueDiffOperation==2){
+						coordX = diffX + coordX + diffX * (valueDiffOperation - 2)
+						coordY = diffY + coordY + diffY * (valueDiffOperation - 2)
+					} else {
+						coordX = diffX + coordX + diffX * (valueDiffOperation / 2)
+						coordY = diffY + coordY + diffY * (valueDiffOperation / 2)
+					}
+				}
+				else{
+					if(valueDiffOperation==2){
+						coordX = diffX + coordX + diffX * (valueDiffOperation - 2)
+						coordY = coordY - diffY - diffY * (valueDiffOperation - 2)
+					} else{
+						coordX = diffX + coordX + diffX * (valueDiffOperation / 2)
+						coordY = coordY - diffY - diffY * (valueDiffOperation / 2)
+					}
+				}
+			}
+			else{
+				if(coordY>traducedCenter[1]){
+					if(valueDiffOperation == 2){
+						coordX = coordX - diffX - diffX * (valueDiffOperation - 2)
+						coordY = diffY + coordY + diffY * (valueDiffOperation - 2)
+					} else{
+						coordX = coordX - diffX - diffX * (valueDiffOperation / 2)
+						coordY = diffY + coordY + diffY * (valueDiffOperation / 2)
+					}
+
+					//coordX = Math.abs((Math.abs(coordX - traducedCenter[0])) - coordX - coordX * (valueDiffOperation - 2))
+					//coordY = Math.abs((Math.abs(coordY - traducedCenter[1])) + coordY + coordY * (valueDiffOperation - 2))
+				}
+				else{
+					if(valueDiffOperation == 2){
+						coordX = coordX - diffX - diffX * (valueDiffOperation - 2)
+						coordY = coordY - diffY - diffY * (valueDiffOperation - 2)
+					} else{
+						coordX = coordX - diffX - diffX * (valueDiffOperation / 2)
+						coordY = coordY - diffY - diffY * (valueDiffOperation / 2)
+					}
+
+					//coordX = Math.abs((Math.abs(coordX - traducedCenter[0])) - coordX - coordX * (valueDiffOperation - 2))
+					//coordY = Math.abs((Math.abs(coordY - traducedCenter[1])) - coordY - coordY * (valueDiffOperation - 2)) 
+				}
 			}
 		}
+	
 
-        else if (lineaAtratar[index+2] == "#FF8000"){
-            if(probability(0.75)){ //solo se representara el 75% de los puntos
-				ctx.fillStyle = lineaAtratar[index+2];
-				ctx.fillRect(lineaAtratar[index], lineaAtratar[index+1], widthActual, heightActual);
+		if (lineaAtratar[index+2] == "#FF0000"){
+		 //   if(probability(0.25)){ //solo se representara el 25% de los puntos
+					ctx.fillStyle = lineaAtratar[index+2];
+					ctx.fillRect(coordX, coordY, widthActual, heightActual);
+			//	}
+			} 
+
+		else if (lineaAtratar[index+2] == "#FF4000"){
+		  //  if(probability(0.5)){ //solo se representara el 50% de los puntos
+					ctx.fillStyle = lineaAtratar[index+2];
+					ctx.fillRect(coordX, coordY, widthActual, heightActual);
+				//}
 			}
+
+		else if (lineaAtratar[index+2] == "#FF8000"){
+		  //  if(probability(0.75)){ //solo se representara el 75% de los puntos
+					ctx.fillStyle = lineaAtratar[index+2];
+					ctx.fillRect(coordX, coordY, widthActual, heightActual);
+			//	}
+			}
+
+		else if (lineaAtratar[index+2] == "#FFBF00" && Math.random()*5 == 1){
+		  //  if(probability(0.8)){ //solo se representara el 80% de los puntos
+					ctx.fillStyle = lineaAtratar[index+2];
+					ctx.fillRect(coordX, coordY, widthActual, heightActual);
+			//	}
+
+			} else{
+				ctx.fillStyle = lineaAtratar[index+2];
+				ctx.fillRect(coordX, coordY, widthActual, heightActual);
+			}
+
+			//Aumentamos el indice para el siguiente punto
+			index+=3
 		}
 
-        else if (lineaAtratar[index+2] == "#FFBF00" && Math.random()*5 == 1){
-            if(probability(0.8)){ //solo se representara el 80% de los puntos
-				ctx.fillStyle = lineaAtratar[index+2];
-				ctx.fillRect(lineaAtratar[index], lineaAtratar[index+1], widthActual, heightActual);
-			}
-
-		} else{
-			ctx.fillStyle = lineaAtratar[index+2];
-			ctx.fillRect(lineaAtratar[index], lineaAtratar[index+1], widthActual, heightActual);
-		}
-
-		//Aumentamos el indice para el siguiente punto
-		index+=3
-	}
-
-	//Restablecemos el canvas con los puntos actualizados
-	ctx.restore();
+		//Restablecemos el canvas con los puntos actualizados
+		ctx.restore();
 }
 
 function animate(lineaLeida) {
 
-  // Guardamos la posicion de inicio del punto
-  points.forEach(point => {
-    point.sx = point.x;
-    point.sy = point.y;
-  });
+    // Guardamos la posicion de inicio del punto
+    points.forEach(point => {
+      point.sx = point.x;
+      point.sy = point.y;
+    });
 
 	//Como actualizamos aumentamos la hora
 	var h = horaReferencia.getHours();
@@ -201,7 +277,7 @@ function parseFile(file, callback) {
     offsetSizes    = 0;
 
 	//Referencia al propio objeto
-    var self       = this; 
+    var self = this; 
 
 	//Inicializamos a null el bloque de lectura
     var chunkReaderBlock = null;
@@ -350,14 +426,11 @@ function avanza_tiempo(){
 
 function retrasa_tiempo() {
 
-
 	indiceActual = contLineaVisualizar
 	offsetTotal = offsetSizes
 	lineasAdded = 0
 
-
 	var segs = 0
-
 	var ticks = 0
 
 	while (indiceActual < sizes.length && indiceActual>1 && ticks < 60) {
@@ -377,11 +450,31 @@ function retrasa_tiempo() {
 	var s = horaReferencia.getSeconds() + segs;
 	horaReferencia.setSeconds(s)
 	s = checkTime(s);
-	document.getElementById('3').innerHTML =
-	h + ":" + m;
+	document.getElementById('3').innerHTML = h + ":" + m;
 
 }
 
+function initCenter (mapCenter, mapTraducedCenter){
+	center = mapCenter;
+	traducedCenter = [mapTraducedCenter.x,mapTraducedCenter.y];
+	console.log("traduced center ", traducedCenter);
+}
 
+function initZoom (mapZoom) {
+	zoom = mapZoom;
+}
+
+function zoomChanged(zoomLevel, newCenter, traducedCenter){
+	console.log("zoom, zoomlevel", zoom, zoomLevel);
+	zoomDiff = zoom - zoomLevel;
+	console.log("zoomDiff ", zoomDiff);
+	mapMoved(newCenter, traducedCenter);
+}
+
+function mapMoved(mapNewCenter, mapTraducedCenter){
+	center = mapNewCenter;
+	traducedCenter = [mapTraducedCenter.x,mapTraducedCenter.y];
+	console.log("traduced center ", traducedCenter);
+}
 
 

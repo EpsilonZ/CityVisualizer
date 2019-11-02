@@ -7,22 +7,24 @@
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
     <title>Simulación de Vilanova i la Geltrú</title>
     <style>
     html,
     body {
         height: 100%;
         width: 100%;
-		margin: 0;
+	margin: 0;
     }
     #map {
         width: 100%;
         height: 100%;
-		position: absolute;
-		z-index:-1;
+	position: absolute;
     }
     canvas {
-      cursor: pointer;
+	position: relative;
+	cursor: pointer;
+	z-index:1;
     }
 
     .play-control {
@@ -30,16 +32,17 @@
       top: 51px;
       left: 154px;
       width: 538px;
-	  color: white;
+      color: white;
       height: 624px;
       text-align: center;
       font-size: 20px;
       font-family: 'helvetica neue', calibri, sans-serif;
       cursor: pointer;
+	  z-index: 100;
     }
 
-	.info {
-		padding: 6px 8px;
+    .info {
+	padding: 6px 8px;
 		font: 18px/20px Arial, Helvetica, sans-serif;
 		background: white;
 		width: 150px;
@@ -79,7 +82,7 @@
 	<div id="map"></div>
 </style>
 
-<input type="file" id="files" name="file" style="float:right"/>
+<input type="file" id="files" name="file" style="z-index:99;position:absolute;float:right"/>
   </body>
   <script>
 
@@ -89,9 +92,17 @@
         token: 'YOUR API KEY'
     });
 
+	var zoomLevel = 14;
+	var center = [41.222904, 1.732962];
+
     var map = L.map('map')
         .addLayer(mapboxTiles)
-        .setView([41.222904,1.732962], 14);	
+        .setView(center, zoomLevel);	
+
+	var traducedCenter = projectPointAux(center[0], center[1]);
+
+	initCenter (center, traducedCenter);
+	initZoom (zoomLevel);
 
 	var legend = L.control({position: 'bottomright'});
 
@@ -118,8 +129,30 @@
 		return div;
 	};
 
+	
 	legend.addTo(map);
 
+	map.on('zoomend', function() {
+		center = [map.getCenter().lat,map.getCenter().lng];
+		zoomLevel = map.getZoom();
+		console.log(center)
+		traducedCenter = projectPointAux(center[0],center[1])
+		zoomChanged(zoomLevel, center, traducedCenter);
+	});
+
+	map.on("moveend", function () {
+		center = [map.getCenter().lat,map.getCenter().lng];
+		traducedCenter = projectPointAux(center[0],center[1])
+		mapMoved(center, traducedCenter);
+	});
+
+	map.on("dblclick", function() {
+		console.log(alert("please click ui element to zoom in. Double click zoom at the moment does not work as expected"));
+	});
+
+	map.on('click', function(e){
+  		console.log(projectPointAux(e.latlng.lat,e.latlng.lng))
+	});
 
 	function getColor(d) {
 
@@ -135,6 +168,12 @@
 		else return '#FF0000'
 
 	}
+
+	function projectPointAux(x, y) {
+		console.log(x,y)
+		var point = map.latLngToLayerPoint(new L.LatLng(x, y));
+		return point;
+	} 
 
 	function handleFileSelect(evt) {
 		
