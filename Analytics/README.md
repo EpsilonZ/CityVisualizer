@@ -31,7 +31,9 @@ In order to parse streets you'll have to first create a Mapquest account https:/
 python3 compute_congestion_per_street.py cityinfo/city.osm
 ```
 
-After generating it, we'll be able to visualize the limits that are generated with another tool I've done in the past in https://github.com/EpsilonZ/TrafficVisualizer (at the moment don't care about the congestion, just see the shapes of the streets).
+![Allt text](../media/parsingstreets.png)
+
+After generating it, we'll be able to visualize the limits that are generated with another tool I've done in the past in https://github.com/EpsilonZ/TrafficVisualizer (at the moment don't care about the congestion, just see the shapes of the streets). 
 
 ## Getting the congestion
 
