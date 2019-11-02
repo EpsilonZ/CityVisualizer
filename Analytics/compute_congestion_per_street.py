@@ -130,7 +130,7 @@ def apunta_trafico_instante(instante):
 	for i in range(len(array_carreteras)):
 		print(carretera_id[i],":",arrayTraficoPorCarretera[i])
 	
-	print("Trafico total detectado:",sum(arrayTraficoPorCarretera))
+	print("Total citizens detected :",sum(arrayTraficoPorCarretera))
 
 def actualiza_hora():
 	global segundos

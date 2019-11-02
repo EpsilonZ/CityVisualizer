@@ -35,6 +35,8 @@ python3 compute_congestion_per_street.py cityinfo/city.osm
 
 After generating it, we'll be able to visualize the limits that are generated with another tool I've done in the past in https://github.com/EpsilonZ/TrafficVisualizer (at the moment don't care about the congestion, just see the shapes of the streets). 
 
+![Allt text](../media/djangoHeatmap.png)
+
 ## Getting the congestion
 
 In order to compute the congestion for the whole generated, you'll have to do the following:
@@ -43,6 +45,8 @@ In order to compute the congestion for the whole generated, you'll have to do th
 python3 compute_congestion_per_street.py ../GenerationModule/sampleResultTraces/samplegittracegps cityinfo/city_street_limits.txt
 ```
 Note that ../GenerationModule/sampleResultTraces/samplegittracegps will be your trace generated file
+
+![Allt text](../media/citizensComputed.png)
 
 __NOTE__: This computing of congestion per street is something I'm still working. If you execute it you'll note that not all citizens are computed of the simulation. This is because some citizens are not within any street boundaries so what I'll have to do is compute to where is the nearest one.
 
