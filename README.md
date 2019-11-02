@@ -2,11 +2,11 @@
 
 __AT THE END I HAVE A ROADMAP IN ORDER TO LET YOU KNOW WHAT I'M CURRENTLY DEVELOPING!__
 
-__Note: If you want to setup your environment head to code/ and html/ directory. There you will find step by step explanations!__
+__Note: If you want to setup your environment head to GenerationModule/ and html/ directory. There you will find step by step explanations!__
 
 __Note2: I hope this README is helpful for you. If it is not please open an issue explaining what part you don't quite understand and I'll be pleased to help!__
 
-__Note3: Under code/ directory you will find a pdf presentation of the project in Spanish__
+__Note3: Under GenerationModule/ directory you will find a pdf presentation of the project in Spanish__
 
 __Note4: This project has another project that was created from it to analyze Traffic and Parking (trying to replicate Google Maps). Check this out if you are interested. https://github.com/EpsilonZ/TrafficVisualizer__
 
