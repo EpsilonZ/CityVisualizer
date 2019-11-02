@@ -6,6 +6,39 @@ After all the mess generating all this raw data it's always useful to know which
 2. Compute how many people are in each neighborhood (__not done but it's on my roadmap__)
 3. Compute how much noise is generated at each zone of the city (__not done but it's on my roadmap__)
 
+## Requirements
+
+In this process we'll be using the following libraries:
+
+	- pyosmium: python3 
+	- osmfilter: cmd tool
+
+### Download raw map file
+
+To parsing all this data, first we'll need to obtain the raw OSM (Open Street Map) of our city. In order to obtain it, make this request:
+
+https://overpass-api.de/api/map?bbox=x1,y1,x2,y2
+
+Where x1,y1 are lattitude,longitude. Note that this two coordinates represent the __TopLeft__ and __BottomRight__ of the bounding box map you want to download. In order to know which is the correct bounding box head to https://www.openstreetmap.org/export and copy the coordinates. I told you to use overpass-api as big maps can not be downloaded directly from OSM.
+
+Call this file __city.osm__ (.osm format needs to be specified for pyosmium parser afterwards) and save it into cityinfo/ directory.
+
+## Parse streets
+
+In order to parse streets you'll have to first create a Mapquest account https://developer.mapquest.com and place your API KEY on compute_congestion_per_street.py as we'll using their services. To execute it do the following:
+
+```
+python3 compute_congestion_per_street.py cityinfo/city.osm
+```
+
+After generating it, we'll be able to visualize the limits that are generated with another tool I've done in the past in https://github.com/EpsilonZ/TrafficVisualizer (at the moment don't care about the congestion, just see the shapes of the streets).
+
+## Getting the congestion
+
+
+
+## ADDITIONAL INFO FOR YOU ON HOW MAP PARSING WORKS. THIS IS JUST ONLY FYI, IS NOT REQUIRED TO PARSE WITH THIS TOOL
+
 ### Download pbf from Geofabrik
 
 Head to Geofabrik (__they are huge, thank you for your amazing work__) http://download.geofabrik.de/ and download your pbf file. In my case it'll be __spain-latest.osm.pbf__.

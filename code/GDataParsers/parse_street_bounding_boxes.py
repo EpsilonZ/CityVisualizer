@@ -8,12 +8,12 @@ import urllib.request
 import json
 
 #API KEYS
-API_KEY = "G8cOMSq203jKU4ZzJ9Deb23g8FvBXAzl"
-API_KEY_ARRAY = ["G8cOMSq203jKU4ZzJ9Deb23g8FvBXAzl"]
+API_KEY = "NluFOozh9zl5jk5hxEjlRvEBjCQDG3id"
+API_KEY_ARRAY = ["NluFOozh9zl5jk5hxEjlRvEBjCQDG3id","P82eDooXMBFiG0ffUgmVohw5gN3APkAZ"]
 
 idApiKey = 0
 
-f = open("city_street_limits.txt","a")
+f = open("cityinfo/city_street_limits.txt","a")
 array_carreteras = []
 
 class LimitesCarreteras(o.SimpleHandler):
@@ -60,6 +60,7 @@ class LimitesCarreteras(o.SimpleHandler):
                         worked = 1
 
                     except:
+                        print('out of transactions, moving to next one key')
                         idApiKey = idApiKey + 1
                   
                     #else:
