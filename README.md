@@ -16,7 +16,10 @@ CityVisualizer have been designed to visualize and simulate urban movements real
 
  ![Allt text](media/withheatmap.png)
  
- Before continuing, please watch the sample video to have in mind what this is so it's easier for you to follow the explanations https://www.youtube.com/watch?v=UivN9joTPaI&t=. Note that what you see is only the front-end of the application!
+ Before continuing, please watch the sample video to have in mind what this is so it's easier for you to follow the explanations (Note that what you see is only the front-end of the application!):
+
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Nuu4zOlyfKQ/0.jpg)](https://www.youtube.com/watch?v=Nuu4zOlyfKQ)
 
 This simulator is based on ABM (Agent Based Modelling) which basically means that in order to simulate a well structured city we have to know how each of our citizens behave within the city. 
 
