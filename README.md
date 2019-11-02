@@ -251,7 +251,7 @@ Our visualization application will have the following UI features so the user ca
 
 - Enable a Docker where users can launch everything with no need to install it in their OS. This will be great as it can be moved to any Server or even to AWS instances with no need of setting up the env!
 
-- Enable interaction with the visualizer. Zoom, move around the map, etc
+- ~~Enable interaction with the visualizer. Zoom, move around the map, etc~~ __DONE__
 
 - Enable classification of the elements. Students/workers/unemployed/>10yo/etc. Will have to look at what's more interesting
 
