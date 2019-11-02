@@ -40,7 +40,7 @@ In order to compute the congestion for the whole generated, you'll have to do th
 ```
 python3 compute_congestion_per_street.py ../GenerationModule/sampleResultTraces/samplegittracegps cityinfo/city_street_limits.txt
 ```
-Note that /var/www/html/Data/vilanovaRandom1gps will be your trace generated file
+Note that ../GenerationModule/sampleResultTraces/samplegittracegps will be your trace generated file
 
 __NOTE__: This computing of congestion per street is something I'm still working. If you execute it you'll note that not all citizens are computed of the simulation. This is because some citizens are not within any street boundaries so what I'll have to do is compute to where is the nearest one.
 
