@@ -1,6 +1,8 @@
 import datetime
 from datetime import timedelta
 import numpy as np
+import sys
+import argparse
 
 hora = 6
 minutos = 0
@@ -12,9 +14,9 @@ array_carreterasleftRightBottomTop = []
 
 carretera_id = []
 
-def carga_carreteras():
+def carga_carreteras(street_limits_file):
 
-	with open("city_information/limitesCarreteraTraducidosVilanovaILaGeltru.txt","r") as ficheroCarreteras:
+	with open(street_limits_file,"r") as ficheroCarreteras:
 		first = False		
 		for carretera in ficheroCarreteras:
 			totalDividido = carretera.split("@@@")
@@ -26,7 +28,7 @@ def carga_carreteras():
 			#Quitamos el \n del final
 			carretera = carretera[:-2]
 			#Pasamos a int el array
-			carretera = list(map(int,carretera))
+			carretera = list(map(float,carretera))
 			#Agrupamos en parejas de dos el array para juntar en x,y las coordenadas
 			n = 2
 			carretera = [ carretera[i:i+n] for i in range(0, len(carretera), n) ]
@@ -87,6 +89,7 @@ def compruebaCercania(numCarretera,x,y):
 
 def detecta_en_que_carretera(x,y):
 
+	print(x,y)
 	carreteraEncontrada = False
 	contadorCarreteras = 0
 	while(not carreteraEncontrada and contadorCarreteras<len(array_carreteras)):
@@ -118,7 +121,7 @@ def apunta_trafico_instante(instante):
 	#print (array_carreteras_maximo_minimo)
 
 	while i < len(instante):
-		numCarretera = detecta_en_que_carretera(int(float(instante[i])),int(float(instante[i+1])))
+		numCarretera = detecta_en_que_carretera(float(instante[i]), float(instante[i+1]))
 		i+=3
 		if(numCarretera!=-1):
 			arrayTraficoPorCarretera[numCarretera]+=1
@@ -153,8 +156,11 @@ def apunta_trafico_dia(dia_traza):
 
 if __name__ == "__main__":
 
-	dia_traza = "city_information/diaModificadoVilanova"
-	carga_carreteras()
+	print("usage python3 /path/to/tracegps /path/to/streetlimits.txt")
+
+	dia_traza = sys.argv[1]
+	carga_carreteras(sys.argv[2])
+	print(array_carreteras)
 	#print(array_carreteras)
 	apunta_trafico_dia(dia_traza)
 
