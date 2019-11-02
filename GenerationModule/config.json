@@ -1,12 +1,12 @@
 {
   "name": "Vilanova random",
   "description": "JSON configuration test",
-  "numberOfCitizens" : 95,
+  "numberOfCitizens" : 2,
   "visualizationTracing" : false,
   "gpsTracing": true,
   "traceName": "vilanovaRandom1",
   "downloadsBrowserFolder": "/home/epsilon/Descargas",
-  "osrmServerIP": "192.168.1.42",
+  "osrmServerIP": "192.168.1.38",
   "osrmServerPort": "5000",
   "destinationDirectory": "/var/www/html/Data/"
 }

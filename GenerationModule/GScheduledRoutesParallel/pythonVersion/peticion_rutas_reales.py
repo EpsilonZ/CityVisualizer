@@ -487,7 +487,8 @@ if __name__ == '__main__':
 	for i in range(totalBarrios):
 		coordsBarrio = get_limites_barrio(i)
 		print("Barrio",i)
-		for edad in range(int(len(cantidadPersonasPorEdad)/citizensNumber)):
+		citizensNumber = float(citizensNumber/100)
+		for edad in range(int(len(cantidadPersonasPorEdad)*citizensNumber)):
 			cantidadEdadDelBarrio = int(round(cantidadPersonasPorEdad[edad]*get_porcentaje_poblacion_barrio(i)))
 			for persona in range(cantidadEdadDelBarrio):
 				rutina,tipo = obten_rutina(edad,tasaParo,cantidadEdadDelBarrio,persona,coordsBarrio)

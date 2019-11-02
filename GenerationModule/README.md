@@ -23,7 +23,7 @@ JSON configuration will have the following structure:
 {
   "name": "Vilanova random",
   "description": "JSON configuration test",
-  "numberOfCitizens" : 95,
+  "numberOfCitizens" : 5,
   "visualizationTracing" : true,
   "gpsTracing": false,
   "traceName": "vilanovaRandom1",
@@ -39,7 +39,7 @@ __name__: Name of the simulation.
 
 __description__: A description of the simulation. This helps keeping a record of what's inside each simulation
 
-__numberOfCitizens__: I'm still working on this field but at the moment is how much OF NOT you want to simulate. For example, if you write 95 it will simulate only 5% of the population. I know this is confusing, I'm fixing it.
+__numberOfCitizens__: The % of the city you want to generate. 100 is the total.
 
 __visualizationTracing__: True if you want to generate the city and enable visualization to the data false if not.
  
