@@ -1,5 +1,6 @@
 # SET UP 
 
+__IMPORTANT:__ This is not required to build it in your OS directly. You can go to ../VisualizerDockerfile/ and build it in a Docker!
 __Note: We'll use Mapbox. Mapbox has a free tier usage, so, if you want to implement this, head to https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ and learn how to create your own API Key. You will have to place that API Key on the html files that create a map__
 
 To set this up you will only need to copy this html/ directory to your /var/www/html directory! Please, be aware that you will need to install apache2 if you haven't yet:

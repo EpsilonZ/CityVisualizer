@@ -1,8 +1,5 @@
 # City generation
 
-__I'm implementing data parsers for computing congestion per street. It's working but I'm actually trying to make it easy for you to apply it at any city so it's taking me a while!__
-__Under GDataParsers/ you'll find a proper README on how to set up the parsers according to your city and analyze the results in a non visual way!__
-
 ## REQUIREMENTS
 
 To execute this you will need to have set up an OSRM server since this is the server we'll use to generate routes. It uses a really simple API so it'll be perfect for our use. Please head to:
