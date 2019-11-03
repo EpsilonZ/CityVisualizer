@@ -252,7 +252,7 @@ Our visualization application will have the following UI features so the user ca
 
 - Enable an API where an origin and destination are given and for each street the congestion is given for the time of the day (I've actually done this already but it's from another project. I'll have to merge it somehow)
 
-- Enable a Docker where users can launch everything with no need to install it in their OS. This will be great as it can be moved to any Server or even to AWS instances with no need of setting up the env!
+- ~~Enable a Docker where users can launch everything with no need to install it in their OS. This will be great as it can be moved to any Server or even to AWS instances with no need of setting up the env!~~ __DONE__
 
 - ~~Enable interaction with the visualizer. Zoom, move around the map, etc~~ __DONE__
 

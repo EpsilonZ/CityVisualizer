@@ -46,7 +46,7 @@ __traceName__: Name of the files you'll be generating
 
 __downloadsBrowserFolder__: This is really useful as we'll be getting data from downloaded files from our web application so it's important that you configure it correctly or you'll encounter errors when looking for files
 
-__osrmSeverIP__: IP for the OSRM server. I've enabled one for you to test!. IP is __54.229.190.29__
+__osrmSeverIP__: IP for the OSRM server. ~~I've enabled one for you to test!. IP is __54.229.190.29__~~
 
 __osrmServerPort__: Port for the OSRM port listening. Typically OSRM runs on 5000
 
