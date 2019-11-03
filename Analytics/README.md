@@ -3,7 +3,7 @@
 After all the mess generating all this raw data it's always useful to know which available options do we have for analyzing everything. At the moment, this is what can we analyze from a city:
 
 1. Traffic congestion at any given moment of the day (in the scripts you'll find how to compute it at each hour but you'll be able to change it as you wish)
-2. Compute how many people are in each neighborhood (__not done but it's on my roadmap__)
+2. Compute how many people are in each neighborhood 
 3. Compute how much noise is generated at each zone of the city (__not done but it's on my roadmap__)
 
 ## Requirements
