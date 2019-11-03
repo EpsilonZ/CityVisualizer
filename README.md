@@ -242,22 +242,22 @@ Our visualization application will have the following UI features so the user ca
 
 ## ROADMAP
 
-- Improve Visualizer UI 
+- [] Improve Visualizer UI 
 
-- Migrate source data to cloud (in my case it'll be DynamoDB) but for github users I'll teach how to build it with MongoDB locally.
+- [] Migrate source data to cloud (in my case it'll be DynamoDB) but for github users I'll teach how to build it with MongoDB locally.
 
-- Enable an API where users can request an hour and a city and congestion is given (this only will be applied to the city I'm testing all of this)
+- [] Enable an API where users can request an hour and a city and congestion is given (this only will be applied to the city I'm testing all of this)
 
-- Compare simulated data to real data with Google Traffic and real measurements
+- [] Compare simulated data to real data with Google Traffic and real measurements
 
-- Integrate this tool with other sensor data (I'm currently doing a M.S in IoT so I'll be probably use this tool with the project)
+- [] Integrate this tool with other sensor data (I'm currently doing a M.S in IoT so I'll be probably use this tool with the project)
 
-- Enable an API where an origin and destination are given and for each street the congestion is given for the time of the day (I've actually done this already but it's from another project. I'll have to merge it somehow)
+- [] Enable an API where an origin and destination are given and for each street the congestion is given for the time of the day (I've actually done this already but it's from another project. I'll have to merge it somehow)
 
-- ~~Enable a Docker where users can launch everything with no need to install it in their OS. This will be great as it can be moved to any Server or even to AWS instances with no need of setting up the env!~~ __DONE__
+- [x] ~~Enable a Docker where users can launch everything with no need to install it in their OS. This will be great as it can be moved to any Server or even to AWS instances with no need of setting up the env!~~ __DONE__
 
-- ~~Enable interaction with the visualizer. Zoom, move around the map, etc~~ __DONE__
+- [x] ~~Enable interaction with the visualizer. Zoom, move around the map, etc~~ __DONE__
 
-- Enable classification of the elements. Students/workers/unemployed/>10yo/etc. Will have to look at what's more interesting
+- [] Enable classification of the elements. Students/workers/unemployed/>10yo/etc. Will have to look at what's more interesting
 
-- Enable to filter between static citizens (staying at their homes, school or anywhere) and citizens in their route to somewhere
+- [] Enable to filter between static citizens (staying at their homes, school or anywhere) and citizens in their route to somewhere
