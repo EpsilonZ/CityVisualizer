@@ -23,7 +23,6 @@ CityVisualizer have been designed to visualize and simulate urban movements real
 
 This simulator is based on ABM (Agent Based Modelling) which basically means that in order to simulate a well structured city we have to know how each of our citizens behave within the city. 
 
-
 ## Data example
 
 Let's take this for an example:
